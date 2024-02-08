@@ -21,10 +21,10 @@ namespace GigaBankLab.Pages.Clients
 
         public IActionResult OnGet()
         {
-        ViewData["CitizenshipId"] = new SelectList(_context.Set<Citizenship>(), "Id", "Id");
-        ViewData["CityOfResidenceId"] = new SelectList(_context.Set<City>(), "Id", "Id");
-        ViewData["DisabilityId"] = new SelectList(_context.Set<Disability>(), "Id", "Id");
-        ViewData["MaritalStatusId"] = new SelectList(_context.Set<MaritalStatus>(), "Id", "Id");
+        ViewData["CitizenshipId"] = new SelectList(_context.Set<Citizenship>(), "Id", "Name");
+        ViewData["CityOfResidenceId"] = new SelectList(_context.Set<City>(), "Id", "Name");
+        ViewData["DisabilityId"] = new SelectList(_context.Set<Disability>(), "Id", "Name");
+        ViewData["MaritalStatusId"] = new SelectList(_context.Set<MaritalStatus>(), "Id", "Name");
             return Page();
         }
 

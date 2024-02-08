@@ -2,10 +2,10 @@
 @model GigaBankLab.Pages.Clients.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Clients";
 }
 
-<h1>Index</h1>
+<h1>Clients</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -86,7 +86,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Client) {
+        @foreach (var item in Model.Client.OrderBy(c => c.LastName))
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.LastName)
@@ -119,7 +120,7 @@
                 @Html.DisplayFor(modelItem => item.PlaceOfBirth)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CityOfResidence.Id)
+                @Html.DisplayFor(modelItem => item.CityOfResidence!.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ResidentialAddress)
@@ -143,13 +144,13 @@
                 @Html.DisplayFor(modelItem => item.MonthlyIncome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MaritalStatus.Id)
+                @Html.DisplayFor(modelItem => item.MaritalStatus!.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Citizenship.Id)
+                @Html.DisplayFor(modelItem => item.Citizenship!.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Disability.Id)
+                @Html.DisplayFor(modelItem => item.Disability!.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsPensioner)
@@ -157,7 +158,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.IsMilitaryServiceRequired)
             </td>
-            <td>
+            <td style="min-width: 200px">
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
