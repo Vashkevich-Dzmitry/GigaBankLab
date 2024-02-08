@@ -1,0 +1,168 @@
+﻿@page
+@model GigaBankLab.Pages.Clients.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].Patronymic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].PassportSeries)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].PassportNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].IssuingAuthority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].IssueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].IdentificationNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].PlaceOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].CityOfResidence)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].ResidentialAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].HomePhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].MobilePhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].Workplace)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].MonthlyIncome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].MaritalStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].Citizenship)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].Disability)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].IsPensioner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].IsMilitaryServiceRequired)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Client) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patronymic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PassportSeries)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PassportNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IssuingAuthority)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IssueDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdentificationNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlaceOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CityOfResidence.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResidentialAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomePhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MobilePhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Workplace)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MonthlyIncome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaritalStatus.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Citizenship.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Disability.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsPensioner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsMilitaryServiceRequired)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
