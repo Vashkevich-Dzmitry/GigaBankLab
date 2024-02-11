@@ -59,6 +59,12 @@ namespace GigaBankLab.Pages.Clients
                 return Page();
             }
 
+            if (_context.Clients.Any(c => c.PassportSeries == Client.PassportSeries && c.PassportNumber == Client.PassportNumber))
+            {
+                ModelState.AddModelError("", "Клиент с данным номером паспорта уже существует");
+                return Page();
+            }
+
             _context.Attach(Client).State = EntityState.Modified;
 
             try
