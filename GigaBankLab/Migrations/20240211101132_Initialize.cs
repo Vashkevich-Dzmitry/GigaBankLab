@@ -3,16 +3,18 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace GigaBankLab.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initialize : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Citizenship",
+                name: "Cities",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -21,11 +23,11 @@ namespace GigaBankLab.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Citizenship", x => x.Id);
+                    table.PrimaryKey("PK_Cities", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "City",
+                name: "Citizenships",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -34,11 +36,11 @@ namespace GigaBankLab.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_City", x => x.Id);
+                    table.PrimaryKey("PK_Citizenships", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Disability",
+                name: "Disabilities",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -47,11 +49,11 @@ namespace GigaBankLab.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Disability", x => x.Id);
+                    table.PrimaryKey("PK_Disabilities", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "MaritalStatus",
+                name: "MaritalStatuses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -60,11 +62,11 @@ namespace GigaBankLab.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MaritalStatus", x => x.Id);
+                    table.PrimaryKey("PK_MaritalStatuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Client",
+                name: "Clients",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -95,51 +97,95 @@ namespace GigaBankLab.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Client", x => x.Id);
+                    table.PrimaryKey("PK_Clients", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Client_Citizenship_CitizenshipId",
-                        column: x => x.CitizenshipId,
-                        principalTable: "Citizenship",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Client_City_CityOfResidenceId",
+                        name: "FK_Clients_Cities_CityOfResidenceId",
                         column: x => x.CityOfResidenceId,
-                        principalTable: "City",
+                        principalTable: "Cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Client_Disability_DisabilityId",
+                        name: "FK_Clients_Citizenships_CitizenshipId",
+                        column: x => x.CitizenshipId,
+                        principalTable: "Citizenships",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Clients_Disabilities_DisabilityId",
                         column: x => x.DisabilityId,
-                        principalTable: "Disability",
+                        principalTable: "Disabilities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Client_MaritalStatus_MaritalStatusId",
+                        name: "FK_Clients_MaritalStatuses_MaritalStatusId",
                         column: x => x.MaritalStatusId,
-                        principalTable: "MaritalStatus",
+                        principalTable: "MaritalStatuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Cities",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Пинск" },
+                    { 2, "Брест" },
+                    { 3, "Белоозёрск" },
+                    { 4, "Берёза" },
+                    { 5, "Минск" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Citizenships",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "РБ" },
+                    { 2, "РФ" },
+                    { 3, "КНР" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Disabilities",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "нет" },
+                    { 2, "1 группа" },
+                    { 3, "2 группа" },
+                    { 4, "3 группа" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MaritalStatuses",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Женат" },
+                    { 2, "Холост" },
+                    { 3, "Замужем" },
+                    { 4, "Незамужем" }
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_Client_CitizenshipId",
-                table: "Client",
+                name: "IX_Clients_CitizenshipId",
+                table: "Clients",
                 column: "CitizenshipId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Client_CityOfResidenceId",
-                table: "Client",
+                name: "IX_Clients_CityOfResidenceId",
+                table: "Clients",
                 column: "CityOfResidenceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Client_DisabilityId",
-                table: "Client",
+                name: "IX_Clients_DisabilityId",
+                table: "Clients",
                 column: "DisabilityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Client_MaritalStatusId",
-                table: "Client",
+                name: "IX_Clients_MaritalStatusId",
+                table: "Clients",
                 column: "MaritalStatusId");
         }
 
@@ -147,19 +193,19 @@ namespace GigaBankLab.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Client");
+                name: "Clients");
 
             migrationBuilder.DropTable(
-                name: "Citizenship");
+                name: "Cities");
 
             migrationBuilder.DropTable(
-                name: "City");
+                name: "Citizenships");
 
             migrationBuilder.DropTable(
-                name: "Disability");
+                name: "Disabilities");
 
             migrationBuilder.DropTable(
-                name: "MaritalStatus");
+                name: "MaritalStatuses");
         }
     }
 }

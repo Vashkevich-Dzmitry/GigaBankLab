@@ -76,7 +76,7 @@
             @Html.DisplayNameFor(model => model.Client.CityOfResidence)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Client.CityOfResidence.Id)
+            @Html.DisplayFor(model => model.Client.CityOfResidence!.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Client.ResidentialAddress)
@@ -124,19 +124,19 @@
             @Html.DisplayNameFor(model => model.Client.MaritalStatus)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Client.MaritalStatus.Id)
+            @Html.DisplayFor(model => model.Client.MaritalStatus!.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Client.Citizenship)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Client.Citizenship.Id)
+            @Html.DisplayFor(model => model.Client.Citizenship!.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Client.Disability)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Client.Disability.Id)
+            @Html.DisplayFor(model => model.Client.Disability!.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Client.IsPensioner)

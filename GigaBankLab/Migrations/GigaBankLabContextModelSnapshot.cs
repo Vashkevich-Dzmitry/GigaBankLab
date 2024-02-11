@@ -36,7 +36,24 @@ namespace GigaBankLab.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Citizenship");
+                    b.ToTable("Citizenships");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "РБ"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "РФ"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "КНР"
+                        });
                 });
 
             modelBuilder.Entity("GigaBankLab.Models.City", b =>
@@ -53,7 +70,34 @@ namespace GigaBankLab.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("City");
+                    b.ToTable("Cities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Пинск"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Брест"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Белоозёрск"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Берёза"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Минск"
+                        });
                 });
 
             modelBuilder.Entity("GigaBankLab.Models.Client", b =>
@@ -152,7 +196,7 @@ namespace GigaBankLab.Migrations
 
                     b.HasIndex("MaritalStatusId");
 
-                    b.ToTable("Client");
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("GigaBankLab.Models.Disability", b =>
@@ -169,7 +213,29 @@ namespace GigaBankLab.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Disability");
+                    b.ToTable("Disabilities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "нет"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "1 группа"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "2 группа"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "3 группа"
+                        });
                 });
 
             modelBuilder.Entity("GigaBankLab.Models.MaritalStatus", b =>
@@ -186,7 +252,29 @@ namespace GigaBankLab.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MaritalStatus");
+                    b.ToTable("MaritalStatuses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Женат"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Холост"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Замужем"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Незамужем"
+                        });
                 });
 
             modelBuilder.Entity("GigaBankLab.Models.Client", b =>

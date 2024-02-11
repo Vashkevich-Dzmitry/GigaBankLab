@@ -21,10 +21,10 @@ namespace GigaBankLab.Pages.Clients
 
         public IActionResult OnGet()
         {
-        ViewData["CitizenshipId"] = new SelectList(_context.Set<Citizenship>(), "Id", "Name");
-        ViewData["CityOfResidenceId"] = new SelectList(_context.Set<City>(), "Id", "Name");
-        ViewData["DisabilityId"] = new SelectList(_context.Set<Disability>(), "Id", "Name");
-        ViewData["MaritalStatusId"] = new SelectList(_context.Set<MaritalStatus>(), "Id", "Name");
+            ViewData["CitizenshipId"] = new SelectList(_context.Set<Citizenship>(), "Id", "Name");
+            ViewData["CityOfResidenceId"] = new SelectList(_context.Set<City>(), "Id", "Name");
+            ViewData["DisabilityId"] = new SelectList(_context.Set<Disability>(), "Id", "Name");
+            ViewData["MaritalStatusId"] = new SelectList(_context.Set<MaritalStatus>(), "Id", "Name");
             return Page();
         }
 
@@ -36,10 +36,24 @@ namespace GigaBankLab.Pages.Clients
         {
             if (!ModelState.IsValid)
             {
+                ViewData["CitizenshipId"] = new SelectList(_context.Set<Citizenship>(), "Id", "Name");
+                ViewData["CityOfResidenceId"] = new SelectList(_context.Set<City>(), "Id", "Name");
+                ViewData["DisabilityId"] = new SelectList(_context.Set<Disability>(), "Id", "Name");
+                ViewData["MaritalStatusId"] = new SelectList(_context.Set<MaritalStatus>(), "Id", "Name");
                 return Page();
             }
 
-            _context.Client.Add(Client);
+            if (_context.Clients.Any(c => c.PassportSeries == Client.PassportSeries && c.PassportNumber == Client.PassportNumber))
+            {
+                ModelState.AddModelError("", "Клиент с данным номером паспорта уже существует");
+                ViewData["CitizenshipId"] = new SelectList(_context.Set<Citizenship>(), "Id", "Name");
+                ViewData["CityOfResidenceId"] = new SelectList(_context.Set<City>(), "Id", "Name");
+                ViewData["DisabilityId"] = new SelectList(_context.Set<Disability>(), "Id", "Name");
+                ViewData["MaritalStatusId"] = new SelectList(_context.Set<MaritalStatus>(), "Id", "Name");
+                return Page();
+            }
+
+            _context.Clients.Add(Client);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

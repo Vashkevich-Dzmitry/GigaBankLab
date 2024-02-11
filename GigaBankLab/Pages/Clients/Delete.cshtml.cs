@@ -29,7 +29,12 @@ namespace GigaBankLab.Pages.Clients
                 return NotFound();
             }
 
-            var client = await _context.Client.FirstOrDefaultAsync(m => m.Id == id);
+            var client = await _context.Clients
+                .Include(c => c.CityOfResidence)
+                .Include(c => c.Citizenship)
+                .Include(c => c.MaritalStatus)
+                .Include(c => c.Disability)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (client == null)
             {
@@ -49,11 +54,11 @@ namespace GigaBankLab.Pages.Clients
                 return NotFound();
             }
 
-            var client = await _context.Client.FindAsync(id);
+            var client = await _context.Clients.FindAsync(id);
             if (client != null)
             {
                 Client = client;
-                _context.Client.Remove(Client);
+                _context.Clients.Remove(Client);
                 await _context.SaveChangesAsync();
             }
 

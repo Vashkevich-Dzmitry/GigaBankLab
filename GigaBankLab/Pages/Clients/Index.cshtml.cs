@@ -23,7 +23,7 @@ namespace GigaBankLab.Pages.Clients
 
         public async Task OnGetAsync()
         {
-            Client = await _context.Client
+            Client = await _context.Clients
                 .Include(c => c.Citizenship)
                 .Include(c => c.CityOfResidence)
                 .Include(c => c.Disability)
