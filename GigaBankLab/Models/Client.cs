@@ -69,6 +69,7 @@ namespace GigaBankLab.Models
         [Display(Name = "Город проживания")]
         [Required(ErrorMessage = "Заполните поле Город проживания")]
         public int CityOfResidenceId { get; set; }
+        [Display(Name = "Город проживания")]
         public City? CityOfResidence { get; set; }
 
 
@@ -78,8 +79,11 @@ namespace GigaBankLab.Models
 
 
         [Display(Name = "Телефон дом.")]
+        [RegularExpression(@"[+]375\(\d{2}\)\d{7}", ErrorMessage = "Введите номер в корректном формате")]
         public string? HomePhone { get; set; }
+
         [Display(Name = "Телефон моб.")]
+        [RegularExpression(@"[+]375\(\d{2}\)\d{7}", ErrorMessage = "Введите номер в корректном формате")]
         public string? MobilePhone { get; set; }
 
         [Display(Name = "E-mail")]
@@ -91,25 +95,27 @@ namespace GigaBankLab.Models
         public string? Position { get; set; }
 
         [Display(Name = "Ежемесячный доход")]
-        [DataType(DataType.Currency)]
         public decimal? MonthlyIncome { get; set; }
 
 
         [Display(Name = "Семейное положение")]
         [Required(ErrorMessage = "Заполните поле Семейное положение")]
         public int MaritalStatusId { get; set; }
+        [Display(Name = "Семейное положение")]
         public MaritalStatus? MaritalStatus { get; set; }
 
 
         [Display(Name = "Гражданство")]
         [Required(ErrorMessage = "Заполните поле Гражданство")]
         public int CitizenshipId { get; set; }
+        [Display(Name = "Гражданство")]
         public Citizenship? Citizenship { get; set; }
 
 
         [Display(Name = "Инвалидность")]
         [Required(ErrorMessage = "Заполните поле Инвалидность")]
         public int DisabilityId { get; set; }
+        [Display(Name = "Инвалидность")]
         public Disability? Disability { get; set; }
 
 

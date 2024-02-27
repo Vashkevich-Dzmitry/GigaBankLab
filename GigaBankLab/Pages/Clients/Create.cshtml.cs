@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using GigaBankLab.Data;
 using GigaBankLab.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GigaBankLab.Pages.Clients
 {
@@ -43,7 +44,7 @@ namespace GigaBankLab.Pages.Clients
                 return Page();
             }
 
-            if (_context.Clients.Any(c => c.PassportSeries == Client.PassportSeries && c.PassportNumber == Client.PassportNumber))
+            if (await _context.Clients.AnyAsync(c => c.PassportSeries == Client.PassportSeries && c.PassportNumber == Client.PassportNumber))
             {
                 ModelState.AddModelError("", "Клиент с данным номером паспорта уже существует");
                 ViewData["CitizenshipId"] = new SelectList(_context.Set<Citizenship>(), "Id", "Name");
