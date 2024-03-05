@@ -95,6 +95,7 @@ namespace GigaBankLab.Models
         public string? Position { get; set; }
 
         [Display(Name = "Ежемесячный доход")]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal? MonthlyIncome { get; set; }
 
 
