@@ -129,15 +129,13 @@
                     <input class="form-check-input" asp-for="Client.IsMilitaryServiceRequired" /> @Html.DisplayNameFor(model => model.Client.IsMilitaryServiceRequired)
                 </label>
             </div>
+            <hr />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" /> | 
+                <a asp-page="./Index">Back to List</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-page="./Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using GigaBankLab.Data;
+using GigaBankLab.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<GigaBankLabContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("GigaBankLabContext") ?? throw new InvalidOperationException("Connection string 'GigaBankLabContext' not found."))
+);
 
-    options.UseSqlServer(builder.Configuration.GetConnectionString("GigaBankLabContext") ?? throw new InvalidOperationException("Connection string 'GigaBankLabContext' not found.")));
+builder.Services.AddScoped<AccountsService>();
+builder.Services.AddScoped<TransactionsService>();
+builder.Services.AddScoped<CurrentDateService>();
+builder.Services.AddScoped<DepositsService>();
+builder.Services.AddScoped<BankOperationsService>();
 
 var app = builder.Build();
 

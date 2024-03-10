@@ -12,17 +12,21 @@ namespace GigaBankLab.Models
 
         [Display(Name = "Основной счёт")]
         public int CurrentAccountId { get; set; }
+        [Display(Name = "Основной счёт")]
         public Account? CurrentAccount { get; set; }
         [Display(Name = "Процентный счёт")]
         public int PercentAccountId { get; set; }
+        [Display(Name = "Процентный счёт")]
         public Account? PercentAccount { get; set; }
 
         [Display(Name = "Клиент")]
         public int ClientId { get; set; }
+        [Display(Name = "Клиент")]
         public Client? Client { get; set; }
 
         [Display(Name = "Депозит")]
         public int DepositId { get; set; }
+        [Display(Name = "Депозит")]
         public Deposit? Deposit { get; set; }
 
         [Display(Name = "Дата открытия")]
@@ -37,6 +41,7 @@ namespace GigaBankLab.Models
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Sum { get; set; }
 
+        [Display(Name = "Закрытый")]
         public bool IsClosed { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

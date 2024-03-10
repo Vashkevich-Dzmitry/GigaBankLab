@@ -1,0 +1,46 @@
+﻿@page
+@model GigaBankLab.Pages.Transactions.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Transactions</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Transaction[0].DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transaction[0].FromAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transaction[0].ToAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transaction[0].Sum)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Transaction) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FromAccount!.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToAccount!.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sum)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

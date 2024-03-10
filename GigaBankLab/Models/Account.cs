@@ -27,10 +27,11 @@ namespace GigaBankLab.Models
         public decimal Debit { get; set; }
 
         [Display(Name = "Сальдо")]
-        public decimal Balance { get => Debit - Credit; }
+        public decimal Balance { get => this.Type == AccountType.Active ? Debit - Credit : Credit - Debit; }
 
         [Display(Name = "Клиент")]
         public int? ClientId { get; set; }
+        [Display(Name = "Клиент")]
         public Client? Client { get; set; }
 
         [Display(Name = "Тип счета")]
@@ -38,6 +39,7 @@ namespace GigaBankLab.Models
 
         [Display(Name = "Валюта")]
         public int CurrencyId { get; set; }
+        [Display(Name = "Валюта")]
         public Currency? Currency { get; set; }
 
         public static string GenerateNumber(string accountCode, int clientId, int accountId)

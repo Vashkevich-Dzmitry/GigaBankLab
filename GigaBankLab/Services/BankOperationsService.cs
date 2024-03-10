@@ -7,10 +7,10 @@ namespace GigaBankLab.Services
         public class BankOperationsService
         {
             private readonly GigaBankLabContext context;
-            private readonly DepositContractsService depositContractService;
+            private readonly DepositsService depositContractService;
             private readonly CurrentDateService dateService;
 
-            public BankOperationsService(GigaBankLabContext context, DepositContractsService depositContractService, CurrentDateService dateService)
+            public BankOperationsService(GigaBankLabContext context, DepositsService depositContractService, CurrentDateService dateService)
             {
                 this.context = context;
                 this.depositContractService = depositContractService;

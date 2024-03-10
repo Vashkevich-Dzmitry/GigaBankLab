@@ -5,5 +5,9 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to GigaBank home page</h1>
+    <h1 class="display-4">Welcome to GigaBank</h1>
+    <p>Сегодня @Model.Today.ToShortDateString()</p>
+
+    <a asp-page-handler="CloseBankDay" class="btn btn-primary">Next bank day</a>
+
 </div>

@@ -1,0 +1,64 @@
+﻿@page
+@model GigaBankLab.Pages.Accounts.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Accounts</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Account[0].Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account[0].Credit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account[0].Debit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account[0].Balance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account[0].Client)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account[0].Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account[0].Currency)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Account) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Debit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Balance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client!.IdentificationNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Currency!.Name)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

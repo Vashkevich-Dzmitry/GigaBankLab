@@ -1,0 +1,79 @@
+﻿@page
+@model GigaBankLab.Pages.Deposits.ClientsDepositsModel
+
+@{
+    ViewData["Title"] = "ClientsDeposits";
+}
+
+<h1>ClientsDeposits</h1>
+
+<p>
+    <a asp-page="CreateDepositContract">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DepositContracts[0].CurrentAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepositContracts[0].PercentAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepositContracts[0].Client)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepositContracts[0].Deposit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepositContracts[0].OpenDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepositContracts[0].CloseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepositContracts[0].Sum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepositContracts[0].IsClosed)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.DepositContracts) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentAccount!.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PercentAccount!.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client!.IdentificationNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Deposit!.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpenDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CloseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsClosed)
+            </td>
+            <td>
+                    @if (item.Deposit!.IsRevocable && !item.IsClosed)
+                {
+                        <a asp-page-handler="Revoke" asp-route-depositContractId="@item.Id" id="revokeBtn" class="btn bg-danger mr-1">Revoke</a>
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

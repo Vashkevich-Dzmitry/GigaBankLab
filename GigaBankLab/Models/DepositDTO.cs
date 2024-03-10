@@ -4,12 +4,13 @@ namespace GigaBankLab.Models
 {
     public class DepositDTO
     {
-        [Required]
+
+        [Display(Name = "Клиент")]
         public int ClientId { get; set; }
 
-        [Required]
+        [Display(Name = "Депозит")]
         public int DepositId { get; set; }
-        [Required]
+        [Display(Name = "Сумма")]
         public decimal Amount { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

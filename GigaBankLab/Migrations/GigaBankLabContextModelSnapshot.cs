@@ -17,7 +17,7 @@ namespace GigaBankLab.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("ProductVersion", "8.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -56,6 +56,26 @@ namespace GigaBankLab.Migrations
                     b.HasIndex("CurrencyId");
 
                     b.ToTable("Accounts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Credit = 0m,
+                            CurrencyId = 1,
+                            Debit = 0m,
+                            Number = "1010000000002",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Credit = 1000000m,
+                            CurrencyId = 1,
+                            Debit = 0m,
+                            Number = "7327000000009",
+                            Type = 1
+                        });
                 });
 
             modelBuilder.Entity("GigaBankLab.Models.Citizenship", b =>
@@ -234,6 +254,135 @@ namespace GigaBankLab.Migrations
                     b.HasIndex("MaritalStatusId");
 
                     b.ToTable("Clients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CitizenshipId = 1,
+                            CityOfResidenceId = 3,
+                            DateOfBirth = new DateTime(2003, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DisabilityId = 1,
+                            Email = "dzmitry.vashkevich.a@gmail.com",
+                            FirstName = "Дмитрий",
+                            HomePhone = "+375(33)6076677",
+                            IdentificationNumber = "1234567D123DD1",
+                            IsMilitaryServiceRequired = true,
+                            IsPensioner = false,
+                            IssueDate = new DateTime(2013, 12, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IssuingAuthority = "Дрогичинский ГОМ",
+                            LastName = "Вашкевич",
+                            MaritalStatusId = 2,
+                            MobilePhone = "+375(33)6077766",
+                            MonthlyIncome = 799.10m,
+                            PassportNumber = "1234567",
+                            PassportSeries = "AA",
+                            Patronymic = "Александрович",
+                            PlaceOfBirth = "г. Белоозёрск",
+                            Position = "Техник",
+                            ResidentialAddress = "ул. Пушкина, д. 3",
+                            Workplace = "Белгипрозем"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CitizenshipId = 1,
+                            CityOfResidenceId = 1,
+                            DateOfBirth = new DateTime(2002, 3, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DisabilityId = 1,
+                            Email = "knux.a@yandex.ru",
+                            FirstName = "Артём",
+                            HomePhone = "+375(29)9998811",
+                            IdentificationNumber = "5434567F123RD1",
+                            IsMilitaryServiceRequired = true,
+                            IsPensioner = false,
+                            IssueDate = new DateTime(2017, 9, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IssuingAuthority = "Пинский ГОВД",
+                            LastName = "Кнюх",
+                            MaritalStatusId = 2,
+                            MonthlyIncome = 800.00m,
+                            PassportNumber = "7654321",
+                            PassportSeries = "AB",
+                            Patronymic = "Игоревич",
+                            PlaceOfBirth = "г. Пинск",
+                            Position = "Техник",
+                            ResidentialAddress = "ул. Ботская, д. 13",
+                            Workplace = "Белгипрозем"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CitizenshipId = 1,
+                            CityOfResidenceId = 5,
+                            DateOfBirth = new DateTime(2003, 7, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DisabilityId = 1,
+                            Email = "dzmitry.vashkevich.a@gmail.com",
+                            FirstName = "Александр",
+                            HomePhone = "+375(33)6076677",
+                            IdentificationNumber = "5411567A123BB1",
+                            IsMilitaryServiceRequired = true,
+                            IsPensioner = false,
+                            IssueDate = new DateTime(2015, 2, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IssuingAuthority = "Пинский ГОВД",
+                            LastName = "Каминский",
+                            MaritalStatusId = 2,
+                            MonthlyIncome = 1000000.00m,
+                            PassportNumber = "7777777",
+                            PassportSeries = "AB",
+                            Patronymic = "Викторович",
+                            PlaceOfBirth = "г. Пинск",
+                            Position = "Программист",
+                            ResidentialAddress = "ул. Речная, д. 66, кв. 6",
+                            Workplace = "ПАРАМЕТРЫ ЗАПУСКА"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CitizenshipId = 1,
+                            CityOfResidenceId = 5,
+                            DateOfBirth = new DateTime(2003, 2, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DisabilityId = 1,
+                            Email = "dzmitry.vashkevich.a@gmail.com",
+                            FirstName = "Андрей",
+                            HomePhone = "+375(33)6076677",
+                            IdentificationNumber = "1234567A123RB1",
+                            IsMilitaryServiceRequired = true,
+                            IsPensioner = false,
+                            IssueDate = new DateTime(2018, 9, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IssuingAuthority = "Вороновский РОВД",
+                            LastName = "Кугач",
+                            MaritalStatusId = 2,
+                            MobilePhone = "+375(16)4353919",
+                            MonthlyIncome = 680.00m,
+                            PassportNumber = "0987654",
+                            PassportSeries = "AC",
+                            Patronymic = "Владимирович",
+                            PlaceOfBirth = "г. Берёза, д. 1002",
+                            Position = "Техник",
+                            ResidentialAddress = "ул. Антиботская, д. 7",
+                            Workplace = "МДА"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CitizenshipId = 1,
+                            CityOfResidenceId = 5,
+                            DateOfBirth = new DateTime(2003, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DisabilityId = 1,
+                            FirstName = "Вадим",
+                            IdentificationNumber = "1111111A123BB1",
+                            IsMilitaryServiceRequired = true,
+                            IsPensioner = true,
+                            IssueDate = new DateTime(2011, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IssuingAuthority = "Витебский РОВД",
+                            LastName = "Шамко",
+                            MaritalStatusId = 2,
+                            PassportNumber = "1112227",
+                            PassportSeries = "RR",
+                            Patronymic = "Сергеевич",
+                            PlaceOfBirth = "г. Витебск",
+                            ResidentialAddress = "ул. Конфетная, д. 1"
+                        });
                 });
 
             modelBuilder.Entity("GigaBankLab.Models.Currency", b =>
@@ -331,6 +480,28 @@ namespace GigaBankLab.Migrations
                     b.HasIndex("CurrencyId");
 
                     b.ToTable("Deposits");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CurrencyId = 1,
+                            Description = "Фиксированная ставка. Выплата процентов ежедневно. Частичное снятие невозможно. Вклад застрахован.",
+                            Duration = 10,
+                            IsRevocable = false,
+                            Name = "Хуткі",
+                            Percent = 9.5
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CurrencyId = 1,
+                            Description = "Фиксированная ставка. Отзывный. Вклад застрахован.",
+                            Duration = 15,
+                            IsRevocable = true,
+                            Name = "На мару",
+                            Percent = 0.29999999999999999
+                        });
                 });
 
             modelBuilder.Entity("GigaBankLab.Models.DepositContract", b =>
