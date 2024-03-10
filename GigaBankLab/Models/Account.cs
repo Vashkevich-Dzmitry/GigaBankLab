@@ -3,14 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GigaBankLab.Models
 {
-    public static class AccountConstants
-    {
-        public const string CashboxAccountCode = "1010";
-        public const string BankGrowthFundAccountCode = "7327";
-        public const string CurrentAccountCode = "3014";
-        public const string PercentAccountCode = "3470";
-    }
-
     public class Account
     {
         public int Id { get; set; }
