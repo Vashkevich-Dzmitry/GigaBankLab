@@ -41,8 +41,14 @@ namespace GigaBankLab.Models
         [Display(Name = "Закрыт")]
         public bool IsClosed { get; set; }
 
-        //[NotMapped]
-        //public IEnumerable<CreditPercentsDto> Plan { get; set; }
+        [Display(Name = "Кредитная карта")]
+        public string CreditCardNumber { get; set; } = default!;
+
+        [Display(Name = "PIN ")]
+        public string CreditCardPIN { get; set; } = default!;
+
+        [NotMapped]
+        public IEnumerable<CreditRepayment> Plan { get; set; } = default!;
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
