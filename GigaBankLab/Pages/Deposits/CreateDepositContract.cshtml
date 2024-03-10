@@ -5,26 +5,26 @@
     ViewData["Title"] = "CreateDepositContract";
 }
 
-<h1>CreateDepositContract</h1>
+<h1>Оформление депозита</h1>
 
-<h4>DepositContract</h4>
+<h4>Депозитный договор</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="DepositDTO.ClientId" class="control-label"></label>
-                <select asp-for="DepositDTO.ClientId" class="form-control" asp-items="ViewBag.ClientId"></select>
+                <label asp-for="DepositContractDTO.ClientId" class="control-label"></label>
+                <select asp-for="DepositContractDTO.ClientId" class="form-control" asp-items="ViewBag.ClientId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="DepositDTO.DepositId" class="control-label"></label>
-                <select asp-for="DepositDTO.DepositId" class ="form-control" asp-items="ViewBag.DepositId"></select>
+                <label asp-for="DepositContractDTO.DepositId" class="control-label"></label>
+                <select asp-for="DepositContractDTO.DepositId" class ="form-control" asp-items="ViewBag.DepositId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="DepositDTO.Amount" class="control-label"></label>
-                <input asp-for="DepositDTO.Amount" type=number min=0 class="form-control" />
-                <span asp-validation-for="DepositDTO.Amount" class="text-danger"></span>
+                <label asp-for="DepositContractDTO.Amount" class="control-label"></label>
+                <input asp-for="DepositContractDTO.Amount" type=number min=0 class="form-control" />
+                <span asp-validation-for="DepositContractDTO.Amount" class="text-danger"></span>
             </div>
             <hr />
             <div class="form-group">

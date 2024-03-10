@@ -4,35 +4,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GigaBankLab.Services
 {
-        public class BankOperationsService
+    public class BankOperationsService
+    {
+        private readonly GigaBankLabContext context;
+        private readonly DepositsService depositContractService;
+        private readonly CurrentDateService dateService;
+
+        public BankOperationsService(GigaBankLabContext context, DepositsService depositContractService, CurrentDateService dateService)
         {
-            private readonly GigaBankLabContext context;
-            private readonly DepositsService depositContractService;
-            private readonly CurrentDateService dateService;
+            this.context = context;
+            this.depositContractService = depositContractService;
+            this.dateService = dateService;
+        }
 
-            public BankOperationsService(GigaBankLabContext context, DepositsService depositContractService, CurrentDateService dateService)
+        public async Task CloseDayAsync()
+        {
+            await dateService.NextDay();
+
+            await depositContractService.CalculatePercent();
+
+            var date = await dateService.GetBankDayAsync();
+            var depositContractsToClose = await context.DepositContracts
+                .Where(dc => !dc.IsClosed && dc.CloseDate.Date <= date)
+                .ToListAsync();
+
+            foreach (var dc in depositContractsToClose)
             {
-                this.context = context;
-                this.depositContractService = depositContractService;
-                this.dateService = dateService;
-            }
-
-            public async Task CloseDayAsync()
-            {
-                await depositContractService.CalculatePercent();
-
-                var date = await dateService.GetTodayAsync();
-                date = date.AddDays(1);
-                var depositContractsToClose = await context.DepositContracts
-                    .Where(dc => !dc.IsClosed && dc.CloseDate.Date <= date)
-                    .ToListAsync();
-
-                foreach (var dc in depositContractsToClose)
-                {
-                    await depositContractService.CloseDepositContract(dc.Id);
-                }
-
-                await dateService.SetToday(date);
+                await depositContractService.CloseDepositContract(dc.Id);
             }
         }
     }
+}

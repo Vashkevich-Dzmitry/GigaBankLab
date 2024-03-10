@@ -5,16 +5,13 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Deposit plans</h1>
+<h1>Депозиты</h1>
 
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Deposit[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Deposit[0].Description)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Deposit[0].Duration)
@@ -28,6 +25,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Deposit[0].IsRevocable)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deposit[0].IsPartialWithdrawal)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -36,9 +36,6 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Duration)
@@ -51,6 +48,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsRevocable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsPartialWithdrawal)
             </td>
         </tr>
 }

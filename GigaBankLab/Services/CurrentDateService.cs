@@ -20,10 +20,18 @@ namespace GigaBankLab.Services
             return new DateTime(date.Year, date.Month, date.Day, now.Hour, now.Minute, now.Second, now.Millisecond, DateTimeKind.Utc);
         }
 
-        public async Task SetToday(DateTime newToday)
+        public async Task<DateTime> GetBankDayAsync()
         {
             var date = await context.CurrentDates.FirstAsync();
-            date.Value = new DateTime(newToday.Year, newToday.Month, newToday.Day, 12, 00, 00, DateTimeKind.Utc);
+            date.Value = date.Value.AddMilliseconds(1);
+            await context.SaveChangesAsync();
+            return date.Value;
+        }
+
+        public async Task NextDay()
+        {
+            var date = await context.CurrentDates.FirstAsync();
+            date.Value = date.Value.AddDays(1);
             await context.SaveChangesAsync();
         }
     }

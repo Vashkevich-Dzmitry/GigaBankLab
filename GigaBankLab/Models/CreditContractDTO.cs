@@ -2,14 +2,14 @@
 
 namespace GigaBankLab.Models
 {
-    public class DepositDTO
+    public class CreditContractDTO : IValidatableObject
     {
-
         [Display(Name = "Клиент")]
         public int ClientId { get; set; }
 
-        [Display(Name = "Депозит")]
-        public int DepositId { get; set; }
+        [Display(Name = "Кредит")]
+        public int CreditId { get; set; }
+        
         [Display(Name = "Сумма")]
         public decimal Amount { get; set; }
 

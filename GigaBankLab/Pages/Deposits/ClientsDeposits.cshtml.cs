@@ -37,7 +37,7 @@ namespace GigaBankLab.Pages.Deposits
 
         public async Task OnGetRevokeAsync(int depositContractId)
         {
-            await _depositsService.CloseDepositContract(depositContractId);
+            await _depositsService.RevokeDepositContract(depositContractId);
 
             DepositContracts = await _context.DepositContracts
                 .OrderByDescending(d => d.OpenDate)

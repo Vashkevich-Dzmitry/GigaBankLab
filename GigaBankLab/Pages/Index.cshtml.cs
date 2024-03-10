@@ -1,6 +1,7 @@
 using GigaBankLab.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace GigaBankLab.Pages
 {
@@ -11,6 +12,7 @@ namespace GigaBankLab.Pages
         private readonly BankOperationsService _bankOperationsService;
         private readonly CurrentDateService _dateService;
 
+        public readonly int SkippedDaysAmount = 10;
         public DateTime Today { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, BankOperationsService bankOperationsService, CurrentDateService dateService)
@@ -29,6 +31,16 @@ namespace GigaBankLab.Pages
         public async Task OnGetCloseBankDayAsync()
         {
             await _bankOperationsService.CloseDayAsync();
+            Today = await _dateService.GetTodayAsync();
+        }
+
+        public async Task OnGetCloseSomeBankDaysAsync()
+        {
+            for (int i = 0; i < SkippedDaysAmount; i++)
+            {
+                await _bankOperationsService.CloseDayAsync();
+            }
+            
             Today = await _dateService.GetTodayAsync();
         }
     }

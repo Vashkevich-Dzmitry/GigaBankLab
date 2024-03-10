@@ -9,5 +9,6 @@
     <p>Сегодня @Model.Today.ToShortDateString()</p>
 
     <a asp-page-handler="CloseBankDay" class="btn btn-primary">Next bank day</a>
+    <a asp-page-handler="CloseSomeBankDays" class="btn btn-primary">Skip @Model.SkippedDaysAmount bank days</a>
 
 </div>

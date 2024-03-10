@@ -24,25 +24,25 @@ namespace GigaBankLab.Pages.Deposits
 
         public IActionResult OnGet()
         {
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "FirstName");
-            ViewData["DepositId"] = new SelectList(_context.Deposits, "Id", "Name");
+            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "IdentificationNumber");
+            ViewData["DepositId"] = new SelectList(_context.Deposits, "Id", "Description");
             return Page();
         }
 
         [BindProperty]
-        public DepositDTO DepositDTO { get; set; } = default!;
+        public DepositContractDTO DepositContractDTO { get; set; } = default!;
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
-                ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "FirstName");
-                ViewData["DepositId"] = new SelectList(_context.Deposits, "Id", "Name");
+                ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "IdentificationNumber");
+                ViewData["DepositId"] = new SelectList(_context.Deposits, "Id", "Description");
                 return Page();
             }
 
-            await _depositsService.CreateDepositContract(DepositDTO);
+            await _depositsService.CreateDepositContract(DepositContractDTO);
 
             return RedirectToPage("./ClientsDeposits");
         }

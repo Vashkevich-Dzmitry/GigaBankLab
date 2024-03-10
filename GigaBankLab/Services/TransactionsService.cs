@@ -15,7 +15,7 @@ namespace GigaBankLab.Services
                 this.dateService = dateService;
             }
 
-            public async Task CreateTransaction(Account from, Account to, decimal amount)
+            public async Task CreateTransaction(Account from, Account to, decimal amount, DateTime datetime)
             {
                 Expenditure(from, amount);
                 Income(to, amount);
@@ -25,7 +25,7 @@ namespace GigaBankLab.Services
                     FromAccount = from,
                     ToAccount = to,
                     Sum = amount,
-                    DateTime = await dateService.GetTodayAsync()
+                    DateTime = datetime
                 };
                 await context.AddAsync(transaction);
                 await context.SaveChangesAsync();

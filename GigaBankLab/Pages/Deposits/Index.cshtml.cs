@@ -12,9 +12,9 @@ namespace GigaBankLab.Pages.Deposits
 {
     public class IndexModel : PageModel
     {
-        private readonly GigaBankLab.Data.GigaBankLabContext _context;
+        private readonly GigaBankLabContext _context;
 
-        public IndexModel(GigaBankLab.Data.GigaBankLabContext context)
+        public IndexModel(GigaBankLabContext context)
         {
             _context = context;
         }

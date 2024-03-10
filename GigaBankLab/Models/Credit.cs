@@ -2,13 +2,13 @@
 
 namespace GigaBankLab.Models
 {
-    public class Deposit
+    public class Credit
     {
         public int Id { get; set; }
 
         [Display(Name = "Название")]
         public string Name { get; set; } = string.Empty;
-
+        
         [Display(Name = "Описание")]
         public string Description { get; set; } = string.Empty;
 
@@ -19,13 +19,11 @@ namespace GigaBankLab.Models
         public double Percent { get; set; }
 
         [Display(Name = "Валюта")]
-        public int CurrencyId { get; set; }
         public Currency? Currency { get; set; }
+        [Display(Name = "Валюта")]
+        public int CurrencyId { get; set; }
 
-        [Display(Name = "Отзывность")]
-        public bool IsRevocable { get; set; }    
-
-        [Display(Name = "Частичное снятие")]
-        public bool IsPartialWithdrawal { get; set; }
+        [Display(Name = "Выплаты равными частями")]
+        public bool Annuity { get; set; }
     }
 }

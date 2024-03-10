@@ -8,24 +8,31 @@ namespace GigaBankLab.Data
         public GigaBankLabContext(DbContextOptions<GigaBankLabContext> options)
             : base(options)
         {
-//#if DEBUG
-//            Database.EnsureDeleted();
-//            Database.EnsureCreated();
-//#endif
+            //RecreateDB();
         }
 
-        public DbSet<GigaBankLab.Models.Client> Clients { get; set; } = default!;
-        public DbSet<GigaBankLab.Models.City> Cities { get; set; } = default!;
-        public DbSet<GigaBankLab.Models.Citizenship> Citizenships { get; set; } = default!;
-        public DbSet<GigaBankLab.Models.Disability> Disabilities { get; set; } = default!;
-        public DbSet<GigaBankLab.Models.MaritalStatus> MaritalStatuses { get; set; } = default!;
+        private void RecreateDB()
+        {
+            Database.EnsureDeleted();
+            Database.EnsureCreated();
+        }
 
-        public DbSet<GigaBankLab.Models.Account> Accounts { get; set; } = default!;
-        public DbSet<GigaBankLab.Models.Currency> Currencies { get; set; } = default!;
-        public DbSet<GigaBankLab.Models.CurrentDate> CurrentDates { get; set; } = default!;
-        public DbSet<GigaBankLab.Models.Deposit> Deposits { get; set; } = default!;
-        public DbSet<GigaBankLab.Models.DepositContract> DepositContracts { get; set; } = default!;
-        public DbSet<GigaBankLab.Models.Transaction> Transactions { get; set; } = default!;
+        public DbSet<Client> Clients { get; set; } = default!;
+        public DbSet<City> Cities { get; set; } = default!;
+        public DbSet<Citizenship> Citizenships { get; set; } = default!;
+        public DbSet<Disability> Disabilities { get; set; } = default!;
+        public DbSet<MaritalStatus> MaritalStatuses { get; set; } = default!;
+
+        public DbSet<Account> Accounts { get; set; } = default!;
+        public DbSet<Currency> Currencies { get; set; } = default!;
+        public DbSet<CurrentDate> CurrentDates { get; set; } = default!;
+        public DbSet<Deposit> Deposits { get; set; } = default!;
+        public DbSet<DepositContract> DepositContracts { get; set; } = default!;
+        public DbSet<Transaction> Transactions { get; set; } = default!;
+
+
+        public DbSet<Credit> Credits { get; set; } = default!;
+        public DbSet<CreditContract> CreditContracts { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -52,6 +59,14 @@ namespace GigaBankLab.Data
                 builder.HasOne(dc => dc.PercentAccount).WithMany().HasForeignKey(t => t.PercentAccountId).OnDelete(DeleteBehavior.NoAction);
                 builder.HasOne(dc => dc.Client).WithMany().HasForeignKey(t => t.ClientId).OnDelete(DeleteBehavior.NoAction);
                 builder.HasOne(dc => dc.Deposit).WithMany().HasForeignKey(t => t.DepositId).OnDelete(DeleteBehavior.NoAction);
+            });
+
+            modelBuilder.Entity<CreditContract>(builder =>
+            {
+                builder.HasOne(dc => dc.CurrentAccount).WithMany().HasForeignKey(t => t.CurrentAccountId).OnDelete(DeleteBehavior.NoAction);
+                builder.HasOne(dc => dc.PercentAccount).WithMany().HasForeignKey(t => t.PercentAccountId).OnDelete(DeleteBehavior.NoAction);
+                builder.HasOne(dc => dc.Client).WithMany().HasForeignKey(t => t.ClientId).OnDelete(DeleteBehavior.NoAction);
+                builder.HasOne(dc => dc.Credit).WithMany().HasForeignKey(t => t.CreditId).OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<City>(builder =>
@@ -210,6 +225,15 @@ namespace GigaBankLab.Data
 
             });
 
+
+            modelBuilder.Entity<Account>(builder =>
+            {
+                builder.HasData(
+                    new Account { Id = 1, Number = Account.GenerateNumber(AccountConstants.CashboxAccountCode, 0, 0), Credit = 0, Debit = 0, ClientId = null, Type = AccountType.Active, CurrencyId = 1 },
+                    new Account { Id = 2, Number = Account.GenerateNumber(AccountConstants.BankGrowthFundAccountCode, 0, 0), Credit = 1_000_000, Debit = 0, ClientId = null, Type = AccountType.Passive, CurrencyId = 1 }
+                    );
+            });
+
             modelBuilder.Entity<Deposit>(builder =>
             {
                 builder.HasData(
@@ -218,59 +242,55 @@ namespace GigaBankLab.Data
                         Id = 1, 
                         CurrencyId = 1, 
                         Name = "Хуткі", 
-                        Duration = 10, 
+                        Duration = 2,
                         Percent = 9.5, 
+                        Description = "Хуткі - 2 месяца - 9.5% - BYN - Не отзывной - С частичными снятиями",
                         IsRevocable = false, 
-                        Description = "Фиксированная ставка. Выплата процентов ежедневно. Частичное снятие невозможно. Вклад застрахован." 
+                        IsPartialWithdrawal = true
                     },
                     new Deposit
                     {
                         Id = 2,
                         CurrencyId = 1,
                         Name = "На мару",
-                        Duration = 15,
+                        Duration = 3,
                         Percent = 0.3,
+                        Description = "На мару - 3 месяца - 0.3% - BYN - Отзывной - Без снятий",
                         IsRevocable = true,
-                        Description = "Фиксированная ставка. Отзывный. Вклад застрахован."
-                    }
-                    );
-                //builder.HasData(
-                //   new Deposit
-                //   {
-                //       Id = 1,
-                //       CurrencyId = 1,
-                //       Name = "Хуткі",
-                //       Duration = 60,
-                //       Percent = 9.5,
-                //       IsRevocable = false,
-                //       Description = "Фиксированная ставка. Выплата процентов ежемесячно. Есть капитализация. Частичное снятие возможно. Вклад застрахован."
-                //   },
-                //   new Deposit
-                //   {
-                //       Id = 2,
-                //       CurrencyId = 1,
-                //       Name = "На мару",
-                //       Duration = 90,
-                //       Percent = 0.3,
-                //       IsRevocable = true,
-                //       Description = "Есть капитализация. Есть пополнения. Есть частичное снятие. Отзывный. Есть пролонгация."
-                //   }
-                //   );
+                        IsPartialWithdrawal = false
+                    });
             });
 
             modelBuilder.Entity<CurrentDate>(builder =>
             {
                 builder.HasData(
-                    new CurrentDate { Id = 1, Value = new DateTime(2024, 03, 04, 12, 00, 00, DateTimeKind.Utc) }
+                    new CurrentDate { Id = 1, Value = new DateTime(2024, 03, 04, 00, 00, 00, DateTimeKind.Utc) }
                     );
             });
 
-            modelBuilder.Entity<Account>(builder =>
-            {
+            modelBuilder.Entity<Credit>(builder => {
                 builder.HasData(
-                    new Account { Id = 1, Number = Account.GenerateNumber(AccountConstants.CashboxAccountCode, 0, 0), Credit = 0, Debit = 0, ClientId = null, Type = AccountType.Active, CurrencyId = 1 },
-                    new Account { Id = 2, Number = Account.GenerateNumber(AccountConstants.BankGrowthFundAccountCode, 0, 0), Credit = 1_000_000, Debit = 0, ClientId = null, Type = AccountType.Passive, CurrencyId = 1 }
-                    );
+                    new Credit 
+                    { 
+                        Id = 1, 
+                        Name = "Больше чем на Личное", 
+                        Duration = 12, 
+                        Percent = 16.63,
+                        Description = "Больше чем на Личное - 12 месяцев - 16.63% - BYN - Аннуитетные платежи",
+                        CurrencyId = 1, 
+                        Annuity = true 
+                    },
+                    new Credit 
+                    { 
+                        Id = 2, 
+                        Name = "На личное", 
+                        Duration = 6, 
+                        Percent = 11, 
+                        Description = "На личное - 6 месяцев - 11% - BYN - Дифференцированные платежи",
+                        CurrencyId = 1, 
+                        Annuity = false
+                    }
+                );
             });
         }
     }
