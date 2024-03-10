@@ -229,8 +229,8 @@ namespace GigaBankLab.Data
             modelBuilder.Entity<Account>(builder =>
             {
                 builder.HasData(
-                    new Account { Id = 1, Number = Account.GenerateNumber(AccountConstants.CashboxAccountCode, 0, 0), Credit = 0, Debit = 0, ClientId = null, Type = AccountType.Active, CurrencyId = 1 },
-                    new Account { Id = 2, Number = Account.GenerateNumber(AccountConstants.BankGrowthFundAccountCode, 0, 0), Credit = 1_000_000, Debit = 0, ClientId = null, Type = AccountType.Passive, CurrencyId = 1 }
+                    new Account { Id = 1, Number = Account.GenerateNumber(AccountCodes.CashboxAccountCode, 0, 0), Credit = 0, Debit = 0, ClientId = null, Type = AccountType.Active, CurrencyId = 1 },
+                    new Account { Id = 2, Number = Account.GenerateNumber(AccountCodes.BankGrowthFundAccountCode, 0, 0), Credit = 1_000_000, Debit = 0, ClientId = null, Type = AccountType.Passive, CurrencyId = 1 }
                     );
             });
 
