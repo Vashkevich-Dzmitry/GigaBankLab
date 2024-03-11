@@ -39,7 +39,7 @@ namespace GigaBankLab.Pages.Deposits
 
             await _depositsService.CreateDepositContract(DepositContractDTO);
 
-            return RedirectToPage("./ClientsDeposits");
+            return RedirectToPage("./DepositContracts");
         }
     }
 }

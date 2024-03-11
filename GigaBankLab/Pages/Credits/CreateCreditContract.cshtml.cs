@@ -43,7 +43,7 @@ namespace GigaBankLab.Pages.Credits
 
             await _creditsSevice.CreateCreditContract(CreditContractDTO);
 
-            return RedirectToPage("./ClientsCredits");
+            return RedirectToPage("./CreditContracts");
         }
     }
 }
