@@ -37,6 +37,7 @@ namespace GigaBankLab.Models
         public DateTime CloseDate { get; set; }
 
         [Display(Name = "Сумма")]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal Sum { get; set; }
 
         [Display(Name = "Закрыт")]

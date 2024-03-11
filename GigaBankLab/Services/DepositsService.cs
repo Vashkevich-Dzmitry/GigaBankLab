@@ -101,7 +101,7 @@ namespace GigaBankLab.Services
             using var transaction = await _context.Database.BeginTransactionAsync();
 
             var currentDate = await _dateService.GetTodayAsync();
-            var deposit = await _context.DepositProducts.FindAsync(depositContractDTO.DepositId);
+            var deposit = await _context.DepositProducts.FindAsync(depositContractDTO.DepositProductId);
             var duration = deposit!.Duration;
             var endDate = currentDate.AddMonths(duration);
 
@@ -121,7 +121,7 @@ namespace GigaBankLab.Services
                 CloseDate = endDate,
                 PercentAccountId = percent.Id,
                 CurrentAccountId = current.Id,
-                DepositProductId = depositContractDTO.DepositId,
+                DepositProductId = depositContractDTO.DepositProductId,
                 ClientId = depositContractDTO.ClientId,
                 Sum = depositContractDTO.Amount,
             };

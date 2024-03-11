@@ -8,7 +8,7 @@ namespace GigaBankLab.Models
         public int ClientId { get; set; }
 
         [Display(Name = "Кредит")]
-        public int CreditId { get; set; }
+        public int CreditProductId { get; set; }
         
         [Display(Name = "Сумма")]
         public decimal Amount { get; set; }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GigaBankLab.Migrations
 {
     [DbContext(typeof(GigaBankLabContext))]
-    [Migration("20240310100544_InitialCreate")]
+    [Migration("20240311083158_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -388,6 +388,116 @@ namespace GigaBankLab.Migrations
                         });
                 });
 
+            modelBuilder.Entity("GigaBankLab.Models.CreditContract", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CloseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreditCardNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreditCardPIN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CreditProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CurrentAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsClosed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("OpenDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PercentAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Sum")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("CreditProductId");
+
+                    b.HasIndex("CurrentAccountId");
+
+                    b.HasIndex("PercentAccountId");
+
+                    b.ToTable("CreditContracts");
+                });
+
+            modelBuilder.Entity("GigaBankLab.Models.CreditProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Annuity")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("CurrencyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Percent")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrencyId");
+
+                    b.ToTable("CreditProducts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Annuity = true,
+                            CurrencyId = 1,
+                            Description = "Больше чем на Личное - 12 месяцев - 16.63% - BYN - Аннуитетные платежи",
+                            Duration = 12,
+                            Name = "Больше чем на Личное",
+                            Percent = 16.629999999999999
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Annuity = false,
+                            CurrencyId = 1,
+                            Description = "На личное - 6 месяцев - 11% - BYN - Дифференцированные платежи",
+                            Duration = 6,
+                            Name = "На личное",
+                            Percent = 11.0
+                        });
+                });
+
             modelBuilder.Entity("GigaBankLab.Models.Currency", b =>
                 {
                     b.Property<int>("Id")
@@ -446,64 +556,7 @@ namespace GigaBankLab.Migrations
                         new
                         {
                             Id = 1,
-                            Value = new DateTime(2024, 3, 4, 12, 0, 0, 0, DateTimeKind.Utc)
-                        });
-                });
-
-            modelBuilder.Entity("GigaBankLab.Models.Deposit", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CurrencyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Duration")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsRevocable")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Percent")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CurrencyId");
-
-                    b.ToTable("Deposits");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CurrencyId = 1,
-                            Description = "Фиксированная ставка. Выплата процентов ежедневно. Частичное снятие невозможно. Вклад застрахован.",
-                            Duration = 10,
-                            IsRevocable = false,
-                            Name = "Хуткі",
-                            Percent = 9.5
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CurrencyId = 1,
-                            Description = "Фиксированная ставка. Отзывный. Вклад застрахован.",
-                            Duration = 15,
-                            IsRevocable = true,
-                            Name = "На мару",
-                            Percent = 0.29999999999999999
+                            Value = new DateTime(2024, 3, 4, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
 
@@ -524,7 +577,7 @@ namespace GigaBankLab.Migrations
                     b.Property<int>("CurrentAccountId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DepositId")
+                    b.Property<int>("DepositProductId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsClosed")
@@ -545,11 +598,73 @@ namespace GigaBankLab.Migrations
 
                     b.HasIndex("CurrentAccountId");
 
-                    b.HasIndex("DepositId");
+                    b.HasIndex("DepositProductId");
 
                     b.HasIndex("PercentAccountId");
 
                     b.ToTable("DepositContracts");
+                });
+
+            modelBuilder.Entity("GigaBankLab.Models.DepositProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CurrencyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsPartialWithdrawal")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRevocable")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Percent")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrencyId");
+
+                    b.ToTable("DepositProducts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CurrencyId = 1,
+                            Description = "Хуткі - 2 месяца - 9.5% - BYN - Не отзывной - С частичными снятиями",
+                            Duration = 2,
+                            IsPartialWithdrawal = true,
+                            IsRevocable = false,
+                            Name = "Хуткі",
+                            Percent = 9.5
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CurrencyId = 1,
+                            Description = "На мару - 3 месяца - 0.3% - BYN - Отзывной - Без снятий",
+                            Duration = 3,
+                            IsPartialWithdrawal = false,
+                            IsRevocable = true,
+                            Name = "На мару",
+                            Percent = 0.29999999999999999
+                        });
                 });
 
             modelBuilder.Entity("GigaBankLab.Models.Disability", b =>
@@ -711,7 +826,42 @@ namespace GigaBankLab.Migrations
                     b.Navigation("MaritalStatus");
                 });
 
-            modelBuilder.Entity("GigaBankLab.Models.Deposit", b =>
+            modelBuilder.Entity("GigaBankLab.Models.CreditContract", b =>
+                {
+                    b.HasOne("GigaBankLab.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("GigaBankLab.Models.CreditProduct", "CreditProduct")
+                        .WithMany()
+                        .HasForeignKey("CreditProductId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("GigaBankLab.Models.Account", "CurrentAccount")
+                        .WithMany()
+                        .HasForeignKey("CurrentAccountId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("GigaBankLab.Models.Account", "PercentAccount")
+                        .WithMany()
+                        .HasForeignKey("PercentAccountId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+
+                    b.Navigation("CreditProduct");
+
+                    b.Navigation("CurrentAccount");
+
+                    b.Navigation("PercentAccount");
+                });
+
+            modelBuilder.Entity("GigaBankLab.Models.CreditProduct", b =>
                 {
                     b.HasOne("GigaBankLab.Models.Currency", "Currency")
                         .WithMany()
@@ -736,9 +886,9 @@ namespace GigaBankLab.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("GigaBankLab.Models.Deposit", "Deposit")
+                    b.HasOne("GigaBankLab.Models.DepositProduct", "DepositProduct")
                         .WithMany()
-                        .HasForeignKey("DepositId")
+                        .HasForeignKey("DepositProductId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -752,9 +902,20 @@ namespace GigaBankLab.Migrations
 
                     b.Navigation("CurrentAccount");
 
-                    b.Navigation("Deposit");
+                    b.Navigation("DepositProduct");
 
                     b.Navigation("PercentAccount");
+                });
+
+            modelBuilder.Entity("GigaBankLab.Models.DepositProduct", b =>
+                {
+                    b.HasOne("GigaBankLab.Models.Currency", "Currency")
+                        .WithMany()
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Currency");
                 });
 
             modelBuilder.Entity("GigaBankLab.Models.Transaction", b =>

@@ -8,7 +8,7 @@ namespace GigaBankLab.Data
         public GigaBankLabContext(DbContextOptions<GigaBankLabContext> options)
             : base(options)
         {
-            //RecreateDB();
+            RecreateDB();
         }
 
         private void RecreateDB()

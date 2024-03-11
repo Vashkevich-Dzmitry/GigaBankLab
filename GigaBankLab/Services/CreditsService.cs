@@ -30,7 +30,7 @@ namespace GigaBankLab.Services
             }
 
             var currentDate = await _dateService.GetTodayAsync();
-            var credit = await _context.CreditProducts.FindAsync(creditContractDTO.CreditId);
+            var credit = await _context.CreditProducts.FindAsync(creditContractDTO.CreditProductId);
             var duration = credit!.Duration;
             var endDate = currentDate.AddMonths(duration);
 
@@ -49,7 +49,7 @@ namespace GigaBankLab.Services
                 CurrentAccountId = current.Id,
                 PercentAccountId = percent.Id,
                 ClientId = creditContractDTO.ClientId,
-                CreditProductId = creditContractDTO.CreditId,
+                CreditProductId = creditContractDTO.CreditProductId,
                 OpenDate = currentDate,
                 CloseDate = endDate,
                 Sum = creditContractDTO.Amount,

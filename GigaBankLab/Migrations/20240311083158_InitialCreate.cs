@@ -92,7 +92,7 @@ namespace GigaBankLab.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Deposits",
+                name: "CreditProducts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -102,13 +102,38 @@ namespace GigaBankLab.Migrations
                     Duration = table.Column<int>(type: "int", nullable: false),
                     Percent = table.Column<double>(type: "float", nullable: false),
                     CurrencyId = table.Column<int>(type: "int", nullable: false),
-                    IsRevocable = table.Column<bool>(type: "bit", nullable: false)
+                    Annuity = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Deposits", x => x.Id);
+                    table.PrimaryKey("PK_CreditProducts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Deposits_Currencies_CurrencyId",
+                        name: "FK_CreditProducts_Currencies_CurrencyId",
+                        column: x => x.CurrencyId,
+                        principalTable: "Currencies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DepositProducts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Duration = table.Column<int>(type: "int", nullable: false),
+                    Percent = table.Column<double>(type: "float", nullable: false),
+                    CurrencyId = table.Column<int>(type: "int", nullable: false),
+                    IsRevocable = table.Column<bool>(type: "bit", nullable: false),
+                    IsPartialWithdrawal = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DepositProducts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DepositProducts_Currencies_CurrencyId",
                         column: x => x.CurrencyId,
                         principalTable: "Currencies",
                         principalColumn: "Id",
@@ -200,6 +225,48 @@ namespace GigaBankLab.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CreditContracts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CurrentAccountId = table.Column<int>(type: "int", nullable: false),
+                    PercentAccountId = table.Column<int>(type: "int", nullable: false),
+                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    CreditProductId = table.Column<int>(type: "int", nullable: false),
+                    OpenDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CloseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Sum = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IsClosed = table.Column<bool>(type: "bit", nullable: false),
+                    CreditCardNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreditCardPIN = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CreditContracts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CreditContracts_Accounts_CurrentAccountId",
+                        column: x => x.CurrentAccountId,
+                        principalTable: "Accounts",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CreditContracts_Accounts_PercentAccountId",
+                        column: x => x.PercentAccountId,
+                        principalTable: "Accounts",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CreditContracts_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CreditContracts_CreditProducts_CreditProductId",
+                        column: x => x.CreditProductId,
+                        principalTable: "CreditProducts",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DepositContracts",
                 columns: table => new
                 {
@@ -208,7 +275,7 @@ namespace GigaBankLab.Migrations
                     CurrentAccountId = table.Column<int>(type: "int", nullable: false),
                     PercentAccountId = table.Column<int>(type: "int", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false),
-                    DepositId = table.Column<int>(type: "int", nullable: false),
+                    DepositProductId = table.Column<int>(type: "int", nullable: false),
                     OpenDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CloseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Sum = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -233,9 +300,9 @@ namespace GigaBankLab.Migrations
                         principalTable: "Clients",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_DepositContracts_Deposits_DepositId",
-                        column: x => x.DepositId,
-                        principalTable: "Deposits",
+                        name: "FK_DepositContracts_DepositProducts_DepositProductId",
+                        column: x => x.DepositProductId,
+                        principalTable: "DepositProducts",
                         principalColumn: "Id");
                 });
 
@@ -301,7 +368,7 @@ namespace GigaBankLab.Migrations
             migrationBuilder.InsertData(
                 table: "CurrentDates",
                 columns: new[] { "Id", "Value" },
-                values: new object[] { 1, new DateTime(2024, 3, 4, 12, 0, 0, 0, DateTimeKind.Utc) });
+                values: new object[] { 1, new DateTime(2024, 3, 4, 0, 0, 0, 0, DateTimeKind.Utc) });
 
             migrationBuilder.InsertData(
                 table: "Disabilities",
@@ -347,12 +414,21 @@ namespace GigaBankLab.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Deposits",
-                columns: new[] { "Id", "CurrencyId", "Description", "Duration", "IsRevocable", "Name", "Percent" },
+                table: "CreditProducts",
+                columns: new[] { "Id", "Annuity", "CurrencyId", "Description", "Duration", "Name", "Percent" },
                 values: new object[,]
                 {
-                    { 1, 1, "Фиксированная ставка. Выплата процентов ежедневно. Частичное снятие невозможно. Вклад застрахован.", 10, false, "Хуткі", 9.5 },
-                    { 2, 1, "Фиксированная ставка. Отзывный. Вклад застрахован.", 15, true, "На мару", 0.29999999999999999 }
+                    { 1, true, 1, "Больше чем на Личное - 12 месяцев - 16.63% - BYN - Аннуитетные платежи", 12, "Больше чем на Личное", 16.629999999999999 },
+                    { 2, false, 1, "На личное - 6 месяцев - 11% - BYN - Дифференцированные платежи", 6, "На личное", 11.0 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "DepositProducts",
+                columns: new[] { "Id", "CurrencyId", "Description", "Duration", "IsPartialWithdrawal", "IsRevocable", "Name", "Percent" },
+                values: new object[,]
+                {
+                    { 1, 1, "Хуткі - 2 месяца - 9.5% - BYN - Не отзывной - С частичными снятиями", 2, true, false, "Хуткі", 9.5 },
+                    { 2, 1, "На мару - 3 месяца - 0.3% - BYN - Отзывной - Без снятий", 3, false, true, "На мару", 0.29999999999999999 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -386,6 +462,31 @@ namespace GigaBankLab.Migrations
                 column: "MaritalStatusId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CreditContracts_ClientId",
+                table: "CreditContracts",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CreditContracts_CreditProductId",
+                table: "CreditContracts",
+                column: "CreditProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CreditContracts_CurrentAccountId",
+                table: "CreditContracts",
+                column: "CurrentAccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CreditContracts_PercentAccountId",
+                table: "CreditContracts",
+                column: "PercentAccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CreditProducts_CurrencyId",
+                table: "CreditProducts",
+                column: "CurrencyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DepositContracts_ClientId",
                 table: "DepositContracts",
                 column: "ClientId");
@@ -396,9 +497,9 @@ namespace GigaBankLab.Migrations
                 column: "CurrentAccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DepositContracts_DepositId",
+                name: "IX_DepositContracts_DepositProductId",
                 table: "DepositContracts",
-                column: "DepositId");
+                column: "DepositProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DepositContracts_PercentAccountId",
@@ -406,8 +507,8 @@ namespace GigaBankLab.Migrations
                 column: "PercentAccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Deposits_CurrencyId",
-                table: "Deposits",
+                name: "IX_DepositProducts_CurrencyId",
+                table: "DepositProducts",
                 column: "CurrencyId");
 
             migrationBuilder.CreateIndex(
@@ -425,6 +526,9 @@ namespace GigaBankLab.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "CreditContracts");
+
+            migrationBuilder.DropTable(
                 name: "CurrentDates");
 
             migrationBuilder.DropTable(
@@ -434,7 +538,10 @@ namespace GigaBankLab.Migrations
                 name: "Transactions");
 
             migrationBuilder.DropTable(
-                name: "Deposits");
+                name: "CreditProducts");
+
+            migrationBuilder.DropTable(
+                name: "DepositProducts");
 
             migrationBuilder.DropTable(
                 name: "Accounts");
