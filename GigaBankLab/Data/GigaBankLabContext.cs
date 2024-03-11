@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using GigaBankLab.Models;
+using GigaBankLab.Models.Atm;
 
 namespace GigaBankLab.Data
 {

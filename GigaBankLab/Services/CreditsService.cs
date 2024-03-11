@@ -40,9 +40,9 @@ namespace GigaBankLab.Services
             var fund = await _context.Accounts.FindAsync(2);
 
             await _transactionsService.CreateTransaction(fund!, current, creditContractDTO.Amount, await _dateService.GetTodayAsync());
-            await _transactionsService.CreateTransaction(current, cash!, creditContractDTO.Amount, await _dateService.GetTodayAsync()); //???
+            //await _transactionsService.CreateTransaction(current, cash!, creditContractDTO.Amount, await _dateService.GetTodayAsync()); //???
 
-            cash!.Credit += creditContractDTO.Amount; // симулирую выдачу вклада в кассе
+            //cash!.Credit += creditContractDTO.Amount; // симулирую выдачу кредита в кассе
 
             var creditContract = new CreditContract()
             {

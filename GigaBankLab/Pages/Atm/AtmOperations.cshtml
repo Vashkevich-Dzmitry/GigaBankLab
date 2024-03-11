@@ -1,0 +1,49 @@
+﻿@page
+@model GigaBankLab.Pages.Atm.AtmOperationsModel
+@{
+    ViewData["Title"] = "AtmOperations";
+}
+
+<h1>Кредитная карта @Html.DisplayFor(_ => Model.CreditContract.CreditCardNumber)</h1>
+
+<hr />
+<h4>Выберите операцию</h4>
+<div class="row">
+    <div class="col-md-4">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkBalanceModal"> Проверить баланс </button>
+        <div class="modal fade" id="checkBalanceModal" tabindex="-1" role="dialog" aria-labelledby="checkBalanceModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="checkBalanceModalTitle">Баланс счёта @Html.DisplayFor(_ => Model.CreditContract.CurrentAccount!.Number)</h5>
+                    </div>
+                    <div class="text-center m-5">
+                        <p>@Html.DisplayFor(_ => Model.CreditContract.CurrentAccount!.Balance) @Html.DisplayFor(_ => Model.CreditContract.CreditProduct!.Currency!.Name)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>            
+            <div class="form-group">
+                <label asp-for="AtmCashWithdrawalDTO.Sum" class="control-label"></label>
+                <input asp-for="AtmCashWithdrawalDTO.Sum" type="number" min="0" class="form-control" />
+                <span asp-validation-for="AtmCashWithdrawalDTO.Sum" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="visibility: hidden">
+                <input type="hidden" asp-for="AtmCashWithdrawalDTO.CreditContractId" value="@Model.CreditContractId" />
+            </div>
+            
+            <div class="form-group mt-2">
+                <input type="submit" value="Снять" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

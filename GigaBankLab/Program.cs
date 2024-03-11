@@ -18,6 +18,7 @@ builder.Services.AddScoped<TransactionsService>();
 builder.Services.AddScoped<CurrentDateService>();
 builder.Services.AddScoped<DepositsService>();
 builder.Services.AddScoped<BankOperationsService>();
+builder.Services.AddScoped<AtmService>();
 
 var app = builder.Build();
 
