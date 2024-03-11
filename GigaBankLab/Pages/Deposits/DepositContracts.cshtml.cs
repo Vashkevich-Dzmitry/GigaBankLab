@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using GigaBankLab.Data;
 using GigaBankLab.Models;
@@ -11,12 +6,12 @@ using GigaBankLab.Services;
 
 namespace GigaBankLab.Pages.Deposits
 {
-    public class ClientsDepositsModel : PageModel
+    public class DepositContractsModel : PageModel
     {
         private readonly GigaBankLabContext _context;
         private readonly DepositsService _depositsService;
 
-        public ClientsDepositsModel(GigaBankLabContext context, DepositsService depositsService)
+        public DepositContractsModel(GigaBankLabContext context, DepositsService depositsService)
         {
             _context = context;
             _depositsService = depositsService;
@@ -30,7 +25,7 @@ namespace GigaBankLab.Pages.Deposits
                 .OrderByDescending(d => d.OpenDate)
                 .Include(d => d.Client)
                 .Include(d => d.CurrentAccount)
-                .Include(d => d.Deposit)
+                .Include(d => d.DepositProduct)
                 .Include(d => d.PercentAccount)
                 .ToListAsync();
         }
@@ -43,7 +38,7 @@ namespace GigaBankLab.Pages.Deposits
                 .OrderByDescending(d => d.OpenDate)
                 .Include(d => d.Client)
                 .Include(d => d.CurrentAccount)
-                .Include(d => d.Deposit)
+                .Include(d => d.DepositProduct)
                 .Include(d => d.PercentAccount)
                 .ToListAsync();
         }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using GigaBankLab.Data;
 using GigaBankLab.Models;
@@ -11,12 +6,12 @@ using GigaBankLab.Services;
 
 namespace GigaBankLab.Pages.Credits
 {
-    public class ClientsCreditsModel : PageModel
+    public class CreditContractsModel : PageModel
     {
         private readonly GigaBankLabContext _context;
         private readonly CreditsService _creditsSevice;
 
-        public ClientsCreditsModel(GigaBankLabContext context, CreditsService creditsService)
+        public CreditContractsModel(GigaBankLabContext context, CreditsService creditsService)
         {
             _context = context;
             _creditsSevice = creditsService;

@@ -1,13 +1,14 @@
 ﻿@page
-@model GigaBankLab.Pages.Credits.ClientsCreditsModel
+@model GigaBankLab.Pages.Credits.CreditContractsModel
 
 @{
-    ViewData["Title"] = "ClientsCredits";
+    ViewData["Title"] = "CreditContracts";
 }
 
 <h1>Кредиты клиентов</h1>
 
 <p>
+    <a asp-page="./CreditProducts">Кредитные продукты</a>  |  
     <a asp-page="./CreateCreditContract">Оформить кредит</a>
 </p>
 <table class="table">

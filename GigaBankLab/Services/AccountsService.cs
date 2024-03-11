@@ -13,21 +13,21 @@ namespace GigaBankLab.Services
             _context = context;
         }
 
-        public async Task<(Account current, Account percent)> CreateDepositAccounts(Deposit deposit, DepositContractDTO depositContractDTO)
+        public async Task<(Account current, Account percent)> CreateDepositAccounts(DepositProduct depositProduct, DepositContractDTO depositContractDTO)
         {
             var accountId = await GetAccountsNumber(depositContractDTO.ClientId);
             var current = new Account()
             {
                 Number = Account.GenerateNumber(AccountCodes.CurrentAccountCode, depositContractDTO.ClientId, accountId),
                 ClientId = depositContractDTO.ClientId,
-                CurrencyId = deposit.CurrencyId,
+                CurrencyId = depositProduct.CurrencyId,
                 Type = AccountType.Passive
             };
             var percent = new Account()
             {
                 Number = Account.GenerateNumber(AccountCodes.PercentAccountCode, depositContractDTO.ClientId, accountId),
                 ClientId = depositContractDTO.ClientId,
-                CurrencyId = deposit.CurrencyId,
+                CurrencyId = depositProduct.CurrencyId,
                 Type = AccountType.Passive
             };
 

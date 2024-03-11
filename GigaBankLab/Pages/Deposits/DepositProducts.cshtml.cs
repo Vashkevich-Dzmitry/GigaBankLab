@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using GigaBankLab.Data;
 using GigaBankLab.Models;
@@ -19,11 +14,11 @@ namespace GigaBankLab.Pages.Deposits
             _context = context;
         }
 
-        public IList<Deposit> Deposits { get;set; } = default!;
+        public IList<DepositProduct> DepositProducts { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Deposits = await _context.Deposits
+            DepositProducts = await _context.DepositProducts
                 .Include(d => d.Currency).ToListAsync();
         }
     }

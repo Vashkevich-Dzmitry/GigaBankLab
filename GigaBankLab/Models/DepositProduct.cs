@@ -2,7 +2,7 @@
 
 namespace GigaBankLab.Models
 {
-    public class Deposit
+    public class DepositProduct
     {
         public int Id { get; set; }
 

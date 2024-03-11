@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using GigaBankLab.Data;
@@ -25,7 +21,7 @@ namespace GigaBankLab.Pages.Deposits
         public IActionResult OnGet()
         {
             ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "IdentificationNumber");
-            ViewData["DepositId"] = new SelectList(_context.Deposits, "Id", "Description");
+            ViewData["DepositId"] = new SelectList(_context.DepositProducts, "Id", "Description");
             return Page();
         }
 
@@ -37,7 +33,7 @@ namespace GigaBankLab.Pages.Deposits
             if (!ModelState.IsValid)
             {
                 ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "IdentificationNumber");
-                ViewData["DepositId"] = new SelectList(_context.Deposits, "Id", "Description");
+                ViewData["DepositId"] = new SelectList(_context.DepositProducts, "Id", "Description");
                 return Page();
             }
 

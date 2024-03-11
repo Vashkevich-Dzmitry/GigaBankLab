@@ -26,7 +26,7 @@ namespace GigaBankLab.Data
         public DbSet<Account> Accounts { get; set; } = default!;
         public DbSet<Currency> Currencies { get; set; } = default!;
         public DbSet<CurrentDate> CurrentDates { get; set; } = default!;
-        public DbSet<Deposit> Deposits { get; set; } = default!;
+        public DbSet<DepositProduct> DepositProducts { get; set; } = default!;
         public DbSet<DepositContract> DepositContracts { get; set; } = default!;
         public DbSet<Transaction> Transactions { get; set; } = default!;
 
@@ -58,7 +58,7 @@ namespace GigaBankLab.Data
                 builder.HasOne(dc => dc.CurrentAccount).WithMany().HasForeignKey(t => t.CurrentAccountId).OnDelete(DeleteBehavior.NoAction);
                 builder.HasOne(dc => dc.PercentAccount).WithMany().HasForeignKey(t => t.PercentAccountId).OnDelete(DeleteBehavior.NoAction);
                 builder.HasOne(dc => dc.Client).WithMany().HasForeignKey(t => t.ClientId).OnDelete(DeleteBehavior.NoAction);
-                builder.HasOne(dc => dc.Deposit).WithMany().HasForeignKey(t => t.DepositId).OnDelete(DeleteBehavior.NoAction);
+                builder.HasOne(dc => dc.DepositProduct).WithMany().HasForeignKey(t => t.DepositProductId).OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<CreditContract>(builder =>
@@ -234,10 +234,10 @@ namespace GigaBankLab.Data
                     );
             });
 
-            modelBuilder.Entity<Deposit>(builder =>
+            modelBuilder.Entity<DepositProduct>(builder =>
             {
                 builder.HasData(
-                    new Deposit 
+                    new DepositProduct 
                     { 
                         Id = 1, 
                         CurrencyId = 1, 
@@ -248,7 +248,7 @@ namespace GigaBankLab.Data
                         IsRevocable = false, 
                         IsPartialWithdrawal = true
                     },
-                    new Deposit
+                    new DepositProduct
                     {
                         Id = 2,
                         CurrencyId = 1,

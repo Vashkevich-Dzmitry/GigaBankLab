@@ -101,7 +101,7 @@ namespace GigaBankLab.Services
             using var transaction = await _context.Database.BeginTransactionAsync();
 
             var currentDate = await _dateService.GetTodayAsync();
-            var deposit = await _context.Deposits.FindAsync(depositContractDTO.DepositId);
+            var deposit = await _context.DepositProducts.FindAsync(depositContractDTO.DepositId);
             var duration = deposit!.Duration;
             var endDate = currentDate.AddMonths(duration);
 
@@ -121,7 +121,7 @@ namespace GigaBankLab.Services
                 CloseDate = endDate,
                 PercentAccountId = percent.Id,
                 CurrentAccountId = current.Id,
-                DepositId = depositContractDTO.DepositId,
+                DepositProductId = depositContractDTO.DepositId,
                 ClientId = depositContractDTO.ClientId,
                 Sum = depositContractDTO.Amount,
             };
@@ -139,7 +139,7 @@ namespace GigaBankLab.Services
                 .Where(dc => !dc.IsClosed && dc.CloseDate.Date >= date.Date && dc.OpenDate <= date.Date)
                 .Include(dc => dc.PercentAccount)
                 .Include(dc => dc.CurrentAccount)
-                .Include(dc => dc.Deposit)
+                .Include(dc => dc.DepositProduct)
                 .ToListAsync();
 
             var cash = await _context.Accounts.FindAsync(1);
@@ -148,14 +148,14 @@ namespace GigaBankLab.Services
             foreach (var dc in openDepositContracts)
             {
                 var amount = dc.CurrentAccount!.Debit;
-                var percents = amount * (decimal)(dc.Deposit!.Percent / 100 / ((((date.Year % 4 == 0 && date.Year % 100 != 0) || date.Year % 400 == 0) ? 1 : 0) + 365));
+                var percents = amount * (decimal)(dc.DepositProduct!.Percent / 100 / ((((date.Year % 4 == 0 && date.Year % 100 != 0) || date.Year % 400 == 0) ? 1 : 0) + 365));
                 await _transactionsService.CreateTransaction(fund!, dc.PercentAccount!, percents, await _dateService.GetBankDayAsync());
 
                 var openDay = dc.OpenDate.Day;
                 var daysInMonth = DateTime.DaysInMonth(date.Year, date.Month);
                 var currentDay = date.Day;
 
-                if (dc.Deposit.IsPartialWithdrawal && (currentDay == openDay || (openDay > daysInMonth && currentDay == daysInMonth)))
+                if (dc.DepositProduct.IsPartialWithdrawal && (currentDay == openDay || (openDay > daysInMonth && currentDay == daysInMonth)))
                 {
                     var percent = dc.PercentAccount;
                     var percentSum = percent!.Balance;

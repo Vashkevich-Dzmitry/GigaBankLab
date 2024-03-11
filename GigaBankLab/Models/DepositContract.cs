@@ -23,9 +23,9 @@ namespace GigaBankLab.Models
         public Client? Client { get; set; }
 
         [Display(Name = "Депозит")]
-        public int DepositId { get; set; }
+        public int DepositProductId { get; set; }
         [Display(Name = "Депозит")]
-        public Deposit? Deposit { get; set; }
+        public DepositProduct? DepositProduct { get; set; }
 
         [Display(Name = "Дата открытия")]
         [DataType(DataType.Date)]

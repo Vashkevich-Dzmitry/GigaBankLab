@@ -1,13 +1,14 @@
 ﻿@page
-@model GigaBankLab.Pages.Deposits.ClientsDepositsModel
+@model GigaBankLab.Pages.Deposits.DepositContractsModel
 
 @{
-    ViewData["Title"] = "ClientsDeposits";
+    ViewData["Title"] = "DepositContracts";
 }
 
 <h1>Депозиты клиентов</h1>
 
 <p>
+    <a asp-page="DepositProducts">Депозитные продукты</a>  |  
     <a asp-page="CreateDepositContract">Оформить депозит</a>
 </p>
 <table class="table">
@@ -23,7 +24,7 @@
                 @Html.DisplayNameFor(model => model.DepositContracts[0].Client)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DepositContracts[0].Deposit)
+                @Html.DisplayNameFor(model => model.DepositContracts[0].DepositProduct)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DepositContracts[0].OpenDate)
@@ -54,7 +55,7 @@
                     @Html.DisplayFor(modelItem => item.Client!.IdentificationNumber)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Deposit!.Name)
+                    @Html.DisplayFor(modelItem => item.DepositProduct!.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.OpenDate)
@@ -69,7 +70,7 @@
                     @Html.DisplayFor(modelItem => item.IsClosed)
                 </td>
                 <td>
-                    @if (item.Deposit!.IsRevocable && !item.IsClosed)
+                    @if (item.DepositProduct!.IsRevocable && !item.IsClosed)
                     {
                         <a asp-page-handler="Revoke" asp-route-depositContractId="@item.Id" id="revokeBtn" class="btn bg-danger mr-1">Отозвать</a>
                     }
