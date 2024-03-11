@@ -92,7 +92,7 @@ namespace GigaBankLab.Services
 
                 result.Add(new CreditRepayment
                 {
-                    Date = startDate.AddMonths(monthsPassed),
+                    Date = startDate.AddMonths(monthsPassed + 1),
                     MainDebt = Math.Round(mainDebth, 2),
                     PercentDebt = Math.Round(percentDebth, 2),
                     PaymentSum = Math.Round(mainDebth, 2) + Math.Round(percentDebth, 2)
@@ -130,35 +130,21 @@ namespace GigaBankLab.Services
 
             foreach (var creditContract in openCreditContracts)
             {
-                decimal mainPayment;
-                decimal percentPayment;
-                var percent = creditContract.Credit!.Percent / 100;
+                creditContract.Plan = CalculateCreditRepaymentPlan(creditContract.Sum, (decimal)creditContract.Credit!.Percent, creditContract.Credit!.Duration, creditContract.Credit!.Annuity, creditContract.OpenDate);
 
-                if (creditContract.Credit.Annuity)
+                foreach (var repayment in creditContract.Plan)
                 {
-                    var monthPercent = percent / 12;
-                    var payment = creditContract.Sum * (decimal)(monthPercent * Math.Pow(1 + monthPercent, creditContract.Credit.Duration) / (Math.Pow(1 + monthPercent, creditContract.Credit.Duration) - 1));
-                    mainPayment = creditContract.Sum / creditContract.Credit.Duration;
-                    percentPayment = payment - mainPayment;
-                }
-                else
-                {
-                    var today = await _dateService.GetBankDayAsync();
-                    var periodPassed = GetPeriodPassed(today, creditContract.OpenDate);
-                    mainPayment = creditContract.Sum / creditContract.Credit.Duration;
-                    percentPayment = (creditContract.Sum - mainPayment * periodPassed) * (decimal)(percent / 12);
-                }
+                    if (repayment.Date.Date == date.Date)
+                    {
+                        cash!.Credit += repayment.PaymentSum; // симулирую оплату по кредиту в кассе
 
-                await _transactionsService.CreateTransaction(cash!, creditContract.PercentAccount!, percentPayment, await _dateService.GetBankDayAsync());
-                await _transactionsService.CreateTransaction(cash!, creditContract.CurrentAccount!, mainPayment, await _dateService.GetBankDayAsync());
-                await _transactionsService.CreateTransaction(creditContract.CurrentAccount!, fund!, mainPayment, await _dateService.GetBankDayAsync());
-                await _transactionsService.CreateTransaction(creditContract.PercentAccount!, fund!, percentPayment, await _dateService.GetBankDayAsync());
+                        await _transactionsService.CreateTransaction(cash!, creditContract.PercentAccount!, repayment.PercentDebt, await _dateService.GetBankDayAsync());
+                        await _transactionsService.CreateTransaction(creditContract.PercentAccount!, fund!, repayment.PercentDebt, await _dateService.GetBankDayAsync());
+                        await _transactionsService.CreateTransaction(cash!, creditContract.CurrentAccount!, repayment.MainDebt, await _dateService.GetBankDayAsync());
+                        await _transactionsService.CreateTransaction(creditContract.CurrentAccount!, fund!, repayment.MainDebt, await _dateService.GetBankDayAsync());
+                    }
+                }                
             }
-        }
-
-        private int GetPeriodPassed(DateTime today, DateTime openDate)
-        {
-            return (today - openDate).Days;
         }
 
         private string GenerateRandomNumberWithLength(int length)
@@ -166,7 +152,7 @@ namespace GigaBankLab.Services
             Random random = new();
 
             const string digits = "0123456789";
-            
+
             return new string(Enumerable.Repeat(digits, length)
                 .Select(s => s[random.Next(s.Length)])
                 .ToArray());
