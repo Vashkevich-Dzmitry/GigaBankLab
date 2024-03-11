@@ -12,7 +12,8 @@ namespace GigaBankLab.Pages
         private readonly BankOperationsService _bankOperationsService;
         private readonly CurrentDateService _dateService;
 
-        public readonly int SkippedDaysAmount = 10;
+        public readonly int SomeDaysAmount = 10;
+        public readonly int ManyDaysAmount = 10;
         public DateTime Today { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, BankOperationsService bankOperationsService, CurrentDateService dateService)
@@ -36,7 +37,17 @@ namespace GigaBankLab.Pages
 
         public async Task OnGetCloseSomeBankDaysAsync()
         {
-            for (int i = 0; i < SkippedDaysAmount; i++)
+            for (int i = 0; i < SomeDaysAmount; i++)
+            {
+                await _bankOperationsService.CloseDayAsync();
+            }
+            
+            Today = await _dateService.GetTodayAsync();
+        }
+
+        public async Task OnGetCloseManyBankDaysAsync()
+        {
+            for (int i = 0; i < ManyDaysAmount; i++)
             {
                 await _bankOperationsService.CloseDayAsync();
             }
