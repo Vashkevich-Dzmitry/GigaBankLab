@@ -13,6 +13,7 @@ builder.Services.AddDbContext<GigaBankLabContext>(options =>
 );
 
 builder.Services.AddScoped<AccountsService>();
+builder.Services.AddScoped<CreditsService>();
 builder.Services.AddScoped<TransactionsService>();
 builder.Services.AddScoped<CurrentDateService>();
 builder.Services.AddScoped<DepositsService>();

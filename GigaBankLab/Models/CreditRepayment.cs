@@ -5,6 +5,7 @@ namespace GigaBankLab.Models
     public class CreditRepayment
     {
         [Display(Name = "Дата")]
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
         [Display(Name = "Основной долг")]
         public decimal MainDebt { get; set; }

@@ -1,0 +1,131 @@
+﻿@page
+@model GigaBankLab.Pages.Credits.ClientsCreditsModel
+
+@{
+    ViewData["Title"] = "ClientsCredits";
+}
+
+<h1>Кредиты клиентов</h1>
+
+<p>
+    <a asp-page="./CreateCreditContract">Оформить кредит</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CreditContracts[0].CurrentAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreditContracts[0].PercentAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreditContracts[0].Client)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreditContracts[0].Credit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreditContracts[0].OpenDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreditContracts[0].CloseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreditContracts[0].Sum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreditContracts[0].IsClosed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreditContracts[0].CreditCardNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreditContracts[0].CreditCardPIN)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.CreditContracts) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentAccount!.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PercentAccount!.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client!.IdentificationNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credit!.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpenDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CloseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsClosed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreditCardNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreditCardPIN)
+            </td>
+            <td>
+                    @if (!item.IsClosed)
+                    {
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentPlanModal@(item.Id)"> План платежей </button>
+                        <div class="modal fade" id="paymentPlanModal@(item.Id)" tabindex="-1" role="dialog" aria-labelledby="paymentPlanModalTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">План платежей по кредиту "@Html.DisplayFor(_ => item.Credit!.Name)" от @Html.DisplayFor(_ => item.OpenDate)</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Дата
+                                                    </th>
+                                                    <th>
+                                                        Основной долг
+                                                    </th>
+                                                    <th>
+                                                        Проценты
+                                                    </th>
+                                                    <th>
+                                                        Итого
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var r in item.Plan)
+                                                {
+                                                    <tr>
+                                                        <td>@Html.DisplayFor(_ => r.Date)</td>
+                                                        <td>@Html.DisplayFor(_ => r.MainDebt)</td>
+                                                        <td>@Html.DisplayFor(_ => r.PercentDebt)</td>
+                                                        <td>@Html.DisplayFor(_ => r.PaymentSum)</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

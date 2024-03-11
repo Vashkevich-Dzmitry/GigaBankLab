@@ -123,9 +123,9 @@ namespace GigaBankLab.Services
             {
                 OpenDate = currentDate,
                 CloseDate = endDate,
-                PercentAccount = percent,
-                CurrentAccount = current,
-                Deposit = deposit,
+                PercentAccountId = percent.Id,
+                CurrentAccountId = current.Id,
+                DepositId = depositContractDTO.DepositId,
                 ClientId = depositContractDTO.ClientId,
                 Sum = depositContractDTO.Amount,
             };

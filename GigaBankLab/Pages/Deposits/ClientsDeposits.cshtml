@@ -8,7 +8,7 @@
 <h1>Депозиты клиентов</h1>
 
 <p>
-    <a asp-page="CreateDepositContract">Create New</a>
+    <a asp-page="CreateDepositContract">Оформить депозит</a>
 </p>
 <table class="table">
     <thead>
@@ -41,39 +41,40 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.DepositContracts) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CurrentAccount!.Number)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PercentAccount!.Number)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Client!.IdentificationNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Deposit!.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OpenDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CloseDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsClosed)
-            </td>
-            <td>
+        @foreach (var item in Model.DepositContracts)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentAccount!.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PercentAccount!.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Client!.IdentificationNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Deposit!.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OpenDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CloseDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsClosed)
+                </td>
+                <td>
                     @if (item.Deposit!.IsRevocable && !item.IsClosed)
-                {
-                        <a asp-page-handler="Revoke" asp-route-depositContractId="@item.Id" id="revokeBtn" class="btn bg-danger mr-1">Revoke</a>
-                }
-            </td>
-        </tr>
-}
+                    {
+                        <a asp-page-handler="Revoke" asp-route-depositContractId="@item.Id" id="revokeBtn" class="btn bg-danger mr-1">Отозвать</a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -14,6 +14,7 @@ namespace GigaBankLab.Models
 
         [Display(Name = "Процентный счёт")]
         public int PercentAccountId { get; set; }
+        [Display(Name = "Процентный счёт")]
         public Account? PercentAccount { get; set; }
 
         [Display(Name = "Клиент")]
@@ -44,7 +45,7 @@ namespace GigaBankLab.Models
         [Display(Name = "Кредитная карта")]
         public string CreditCardNumber { get; set; } = default!;
 
-        [Display(Name = "PIN ")]
+        [Display(Name = "PIN-код")]
         public string CreditCardPIN { get; set; } = default!;
 
         [NotMapped]

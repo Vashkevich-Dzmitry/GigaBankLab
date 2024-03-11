@@ -13,16 +13,16 @@ namespace GigaBankLab.Pages.Deposits
 {
     public class ClientsDepositsModel : PageModel
     {
-        private readonly GigaBankLab.Data.GigaBankLabContext _context;
+        private readonly GigaBankLabContext _context;
         private readonly DepositsService _depositsService;
 
-        public ClientsDepositsModel(GigaBankLab.Data.GigaBankLabContext context, DepositsService depositsService)
+        public ClientsDepositsModel(GigaBankLabContext context, DepositsService depositsService)
         {
             _context = context;
             _depositsService = depositsService;
         }
 
-        public IList<DepositContract> DepositContracts { get;set; } = default!;
+        public IList<DepositContract> DepositContracts { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
