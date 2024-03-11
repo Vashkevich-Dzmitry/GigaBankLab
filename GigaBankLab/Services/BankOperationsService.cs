@@ -1,6 +1,6 @@
-﻿using GigaBankLab.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using GigaBankLab.Data;
 using GigaBankLab.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace GigaBankLab.Services
 {

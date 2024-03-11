@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using GigaBankLab.Data;
@@ -12,9 +8,9 @@ namespace GigaBankLab.Pages.Clients
 {
     public class DetailsModel : PageModel
     {
-        private readonly GigaBankLab.Data.GigaBankLabContext _context;
+        private readonly GigaBankLabContext _context;
 
-        public DetailsModel(GigaBankLab.Data.GigaBankLabContext context)
+        public DetailsModel(GigaBankLabContext context)
         {
             _context = context;
         }

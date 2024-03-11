@@ -23,7 +23,7 @@
                 @Html.DisplayNameFor(model => model.CreditContracts[0].Client)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreditContracts[0].Credit)
+                @Html.DisplayNameFor(model => model.CreditContracts[0].CreditProduct)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreditContracts[0].OpenDate)
@@ -59,7 +59,7 @@
                 @Html.DisplayFor(modelItem => item.Client!.IdentificationNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Credit!.Description)
+                @Html.DisplayFor(modelItem => item.CreditProduct!.Description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OpenDate)
@@ -87,7 +87,7 @@
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">План платежей по кредиту "@Html.DisplayFor(_ => item.Credit!.Name)" от @Html.DisplayFor(_ => item.OpenDate)</h5>
+                                        <h5 class="modal-title" id="exampleModalLongTitle">План платежей по кредиту "@Html.DisplayFor(_ => item.CreditProduct!.Name)" от @Html.DisplayFor(_ => item.OpenDate)</h5>
                                     </div>
                                     <div class="modal-body">
                                         <table class="table">

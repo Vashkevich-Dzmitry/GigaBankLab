@@ -24,9 +24,9 @@ namespace GigaBankLab.Models
         public Client? Client { get; set; }
 
         [Display(Name = "Кредит")]
-        public int CreditId { get; set; }
+        public int CreditProductId { get; set; }
         [Display(Name = "Кредит")]
-        public Credit? Credit { get; set; }
+        public CreditProduct? CreditProduct { get; set; }
 
         [Display(Name = "Дата открытия")]
         [DataType(DataType.Date)]

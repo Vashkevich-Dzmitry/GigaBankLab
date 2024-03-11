@@ -19,11 +19,11 @@ namespace GigaBankLab.Pages.Deposits
             _context = context;
         }
 
-        public IList<Deposit> Deposit { get;set; } = default!;
+        public IList<Deposit> Deposits { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Deposit = await _context.Deposits
+            Deposits = await _context.Deposits
                 .Include(d => d.Currency).ToListAsync();
         }
     }

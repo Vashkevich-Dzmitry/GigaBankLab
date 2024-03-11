@@ -1,7 +1,6 @@
-﻿using GigaBankLab.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using GigaBankLab.Data;
 using GigaBankLab.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace GigaBankLab.Services
 {
@@ -31,7 +30,7 @@ namespace GigaBankLab.Services
             }
 
             var currentDate = await _dateService.GetTodayAsync();
-            var credit = await _context.Credits.FindAsync(creditContractDTO.CreditId);
+            var credit = await _context.CreditProducts.FindAsync(creditContractDTO.CreditId);
             var duration = credit!.Duration;
             var endDate = currentDate.AddMonths(duration);
 
@@ -50,7 +49,7 @@ namespace GigaBankLab.Services
                 CurrentAccountId = current.Id,
                 PercentAccountId = percent.Id,
                 ClientId = creditContractDTO.ClientId,
-                CreditId = creditContractDTO.CreditId,
+                CreditProductId = creditContractDTO.CreditId,
                 OpenDate = currentDate,
                 CloseDate = endDate,
                 Sum = creditContractDTO.Amount,
@@ -68,8 +67,8 @@ namespace GigaBankLab.Services
         {
             yearPercent /= 100;
             var result = new List<CreditRepayment>();
-            decimal mainDebth;
-            decimal percentDebt = 0;
+
+            decimal mainDebth, percentDebt = 0;
 
             if (annuity)
             {
@@ -86,9 +85,7 @@ namespace GigaBankLab.Services
 
             for (int monthsPassed = 0; monthsPassed < months; monthsPassed++)
             {
-                decimal percentDebth = annuity
-                  ? percentDebt
-                  : (creditAmount - (mainDebth * monthsPassed)) * yearPercent / 12;
+                decimal percentDebth = annuity ? percentDebt : (creditAmount - (mainDebth * monthsPassed)) * yearPercent / 12;
 
                 result.Add(new CreditRepayment
                 {
@@ -118,25 +115,25 @@ namespace GigaBankLab.Services
         public async Task CalculatePercent()
         {
             var date = await _dateService.GetBankDayAsync();
-            var openCreditContracts = await _context.CreditContracts
-                .Where(cc => !cc.IsClosed && cc.CloseDate.Date > date.Date)
+            var openedCreditContracts = await _context.CreditContracts
+                .Where(cc => !cc.IsClosed && cc.CloseDate.Date >= date.Date)
                 .Include(cc => cc.PercentAccount)
                 .Include(cc => cc.CurrentAccount)
-                .Include(cc => cc.Credit)
+                .Include(cc => cc.CreditProduct)
                 .ToListAsync();
 
             var cash = await _context.Accounts.FindAsync(1);
             var fund = await _context.Accounts.FindAsync(2);
 
-            foreach (var creditContract in openCreditContracts)
+            foreach (var creditContract in openedCreditContracts)
             {
-                creditContract.Plan = CalculateCreditRepaymentPlan(creditContract.Sum, (decimal)creditContract.Credit!.Percent, creditContract.Credit!.Duration, creditContract.Credit!.Annuity, creditContract.OpenDate);
+                creditContract.Plan = CalculateCreditRepaymentPlan(creditContract.Sum, (decimal)creditContract.CreditProduct!.Percent, creditContract.CreditProduct!.Duration, creditContract.CreditProduct!.Annuity, creditContract.OpenDate);
 
                 foreach (var repayment in creditContract.Plan)
                 {
                     if (repayment.Date.Date == date.Date)
                     {
-                        cash!.Credit += repayment.PaymentSum; // симулирую оплату по кредиту в кассе
+                        cash!.Debit += repayment.PaymentSum; // симулирую оплату по кредиту в кассе
 
                         await _transactionsService.CreateTransaction(cash!, creditContract.PercentAccount!, repayment.PercentDebt, await _dateService.GetBankDayAsync());
                         await _transactionsService.CreateTransaction(creditContract.PercentAccount!, fund!, repayment.PercentDebt, await _dateService.GetBankDayAsync());
@@ -147,7 +144,7 @@ namespace GigaBankLab.Services
             }
         }
 
-        private string GenerateRandomNumberWithLength(int length)
+        private static string GenerateRandomNumberWithLength(int length)
         {
             Random random = new();
 

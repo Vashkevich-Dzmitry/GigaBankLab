@@ -6,13 +6,13 @@ namespace GigaBankLab.Services
 
         public class TransactionsService
         {
-            private readonly GigaBankLabContext context;
-            private readonly CurrentDateService dateService;
+            private readonly GigaBankLabContext _context;
+            private readonly CurrentDateService _dateService;
 
             public TransactionsService(GigaBankLabContext context, CurrentDateService dateService)
             {
-                this.context = context;
-                this.dateService = dateService;
+                _context = context;
+                _dateService = dateService;
             }
 
             public async Task CreateTransaction(Account from, Account to, decimal amount, DateTime datetime)
@@ -27,8 +27,8 @@ namespace GigaBankLab.Services
                     Sum = amount,
                     DateTime = datetime
                 };
-                await context.AddAsync(transaction);
-                await context.SaveChangesAsync();
+                await _context.AddAsync(transaction);
+                await _context.SaveChangesAsync();
             }
 
             private static void Expenditure(Account account, decimal amount)

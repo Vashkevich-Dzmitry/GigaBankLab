@@ -1,18 +1,16 @@
-﻿using GigaBankLab.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using GigaBankLab.Models;
 using GigaBankLab.Data;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GigaBankLab.Services
 {
     public class AccountsService
     {
-        private readonly GigaBankLabContext context;
+        private readonly GigaBankLabContext _context;
 
         public AccountsService(GigaBankLabContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public async Task<(Account current, Account percent)> CreateDepositAccounts(Deposit deposit, DepositContractDTO depositContractDTO)
@@ -33,39 +31,39 @@ namespace GigaBankLab.Services
                 Type = AccountType.Passive
             };
 
-            await context.AddRangeAsync(current, percent);
-            await context.SaveChangesAsync();
+            await _context.AddRangeAsync(current, percent);
+            await _context.SaveChangesAsync();
 
             return (current, percent);
         }
 
-        public async Task<(Account current, Account percent)> CreateCreditAccounts(Credit credit, CreditContractDTO creditContractDTO)
+        public async Task<(Account current, Account percent)> CreateCreditAccounts(CreditProduct creditProduct, CreditContractDTO creditContractDTO)
         {
             var accountId = await GetAccountsNumber(creditContractDTO.ClientId);
             var current = new Account()
             {
                 Number = Account.GenerateNumber(AccountCodes.CreditAccountCode, creditContractDTO.ClientId, accountId),
                 ClientId = creditContractDTO.ClientId,
-                CurrencyId = credit.CurrencyId,
+                CurrencyId = creditProduct.CurrencyId,
                 Type = AccountType.Active
             };
             var percent = new Account()
             {
                 Number = Account.GenerateNumber(AccountCodes.CreditPercentCode, creditContractDTO.ClientId, accountId),
                 ClientId = creditContractDTO.ClientId,
-                CurrencyId = credit.CurrencyId,
+                CurrencyId = creditProduct.CurrencyId,
                 Type = AccountType.Active
             };
 
-            await context.AddRangeAsync(current, percent);
-            await context.SaveChangesAsync();
+            await _context.AddRangeAsync(current, percent);
+            await _context.SaveChangesAsync();
 
             return (current, percent);
         }
 
         private Task<int> GetAccountsNumber(int clientId)
         {
-            return context.Accounts.Where(a => a.ClientId == clientId).CountAsync();
+            return _context.Accounts.Where(a => a.ClientId == clientId).CountAsync();
         }
     }
 }

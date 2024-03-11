@@ -1,7 +1,6 @@
-using GigaBankLab.Services;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using GigaBankLab.Services;
 
 namespace GigaBankLab.Pages
 {
@@ -13,7 +12,7 @@ namespace GigaBankLab.Pages
         private readonly CurrentDateService _dateService;
 
         public readonly int SomeDaysAmount = 10;
-        public readonly int ManyDaysAmount = 10;
+        public readonly int ManyDaysAmount = 100;
         public DateTime Today { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, BankOperationsService bankOperationsService, CurrentDateService dateService)

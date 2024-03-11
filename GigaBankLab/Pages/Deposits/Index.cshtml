@@ -11,28 +11,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Deposit[0].Name)
+                @Html.DisplayNameFor(model => model.Deposits[0].Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Deposit[0].Duration)
+                @Html.DisplayNameFor(model => model.Deposits[0].Duration)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Deposit[0].Percent)
+                @Html.DisplayNameFor(model => model.Deposits[0].Percent)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Deposit[0].Currency)
+                @Html.DisplayNameFor(model => model.Deposits[0].Currency)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Deposit[0].IsRevocable)
+                @Html.DisplayNameFor(model => model.Deposits[0].IsRevocable)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Deposit[0].IsPartialWithdrawal)
+                @Html.DisplayNameFor(model => model.Deposits[0].IsPartialWithdrawal)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Deposit) {
+@foreach (var item in Model.Deposits) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)

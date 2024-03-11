@@ -31,7 +31,7 @@ namespace GigaBankLab.Data
         public DbSet<Transaction> Transactions { get; set; } = default!;
 
 
-        public DbSet<Credit> Credits { get; set; } = default!;
+        public DbSet<CreditProduct> CreditProducts { get; set; } = default!;
         public DbSet<CreditContract> CreditContracts { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -66,7 +66,7 @@ namespace GigaBankLab.Data
                 builder.HasOne(dc => dc.CurrentAccount).WithMany().HasForeignKey(t => t.CurrentAccountId).OnDelete(DeleteBehavior.NoAction);
                 builder.HasOne(dc => dc.PercentAccount).WithMany().HasForeignKey(t => t.PercentAccountId).OnDelete(DeleteBehavior.NoAction);
                 builder.HasOne(dc => dc.Client).WithMany().HasForeignKey(t => t.ClientId).OnDelete(DeleteBehavior.NoAction);
-                builder.HasOne(dc => dc.Credit).WithMany().HasForeignKey(t => t.CreditId).OnDelete(DeleteBehavior.NoAction);
+                builder.HasOne(dc => dc.CreditProduct).WithMany().HasForeignKey(t => t.CreditProductId).OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<City>(builder =>
@@ -268,9 +268,9 @@ namespace GigaBankLab.Data
                     );
             });
 
-            modelBuilder.Entity<Credit>(builder => {
+            modelBuilder.Entity<CreditProduct>(builder => {
                 builder.HasData(
-                    new Credit 
+                    new CreditProduct 
                     { 
                         Id = 1, 
                         Name = "Больше чем на Личное", 
@@ -280,7 +280,7 @@ namespace GigaBankLab.Data
                         CurrencyId = 1, 
                         Annuity = true 
                     },
-                    new Credit 
+                    new CreditProduct 
                     { 
                         Id = 2, 
                         Name = "На личное", 

@@ -13,9 +13,9 @@ namespace GigaBankLab.Pages.Clients
 {
     public class CreateModel : PageModel
     {
-        private readonly GigaBankLab.Data.GigaBankLabContext _context;
+        private readonly GigaBankLabContext _context;
 
-        public CreateModel(GigaBankLab.Data.GigaBankLabContext context)
+        public CreateModel(GigaBankLabContext context)
         {
             _context = context;
         }
@@ -32,7 +32,6 @@ namespace GigaBankLab.Pages.Clients
         [BindProperty]
         public Client Client { get; set; } = default!;
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)

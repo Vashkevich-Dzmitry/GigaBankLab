@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +9,9 @@ namespace GigaBankLab.Pages.Clients
 {
     public class EditModel : PageModel
     {
-        private readonly GigaBankLab.Data.GigaBankLabContext _context;
+        private readonly GigaBankLabContext _context;
 
-        public EditModel(GigaBankLab.Data.GigaBankLabContext context)
+        public EditModel(GigaBankLabContext context)
         {
             _context = context;
         }
@@ -50,8 +46,6 @@ namespace GigaBankLab.Pages.Clients
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)

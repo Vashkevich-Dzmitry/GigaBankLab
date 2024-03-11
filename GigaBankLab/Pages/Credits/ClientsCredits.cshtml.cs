@@ -28,14 +28,14 @@ namespace GigaBankLab.Pages.Credits
         {
             CreditContracts = await _context.CreditContracts
                 .Include(c => c.Client)
-                .Include(c => c.Credit)
+                .Include(c => c.CreditProduct)
                 .Include(c => c.CurrentAccount)
                 .Include(c => c.PercentAccount)
                 .ToListAsync();
 
             foreach (var contract in CreditContracts)
             {
-                contract.Plan = _creditsSevice.CalculateCreditRepaymentPlan(contract.Sum, (decimal)contract.Credit!.Percent, contract.Credit!.Duration, contract.Credit!.Annuity, contract.OpenDate);
+                contract.Plan = _creditsSevice.CalculateCreditRepaymentPlan(contract.Sum, (decimal)contract.CreditProduct!.Percent, contract.CreditProduct!.Duration, contract.CreditProduct!.Annuity, contract.OpenDate);
             }
         }
     }

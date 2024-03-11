@@ -15,79 +15,79 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].LastName)
+                    @Html.DisplayNameFor(model => model.Clients[0].LastName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].FirstName)
+                    @Html.DisplayNameFor(model => model.Clients[0].FirstName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].Patronymic)
+                    @Html.DisplayNameFor(model => model.Clients[0].Patronymic)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].DateOfBirth)
+                    @Html.DisplayNameFor(model => model.Clients[0].DateOfBirth)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].PassportSeries)
+                    @Html.DisplayNameFor(model => model.Clients[0].PassportSeries)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].PassportNumber)
+                    @Html.DisplayNameFor(model => model.Clients[0].PassportNumber)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].IssuingAuthority)
+                    @Html.DisplayNameFor(model => model.Clients[0].IssuingAuthority)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].IssueDate)
+                    @Html.DisplayNameFor(model => model.Clients[0].IssueDate)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].IdentificationNumber)
+                    @Html.DisplayNameFor(model => model.Clients[0].IdentificationNumber)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].PlaceOfBirth)
+                    @Html.DisplayNameFor(model => model.Clients[0].PlaceOfBirth)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].CityOfResidence)
+                    @Html.DisplayNameFor(model => model.Clients[0].CityOfResidence)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].ResidentialAddress)
+                    @Html.DisplayNameFor(model => model.Clients[0].ResidentialAddress)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].HomePhone)
+                    @Html.DisplayNameFor(model => model.Clients[0].HomePhone)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].MobilePhone)
+                    @Html.DisplayNameFor(model => model.Clients[0].MobilePhone)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].Email)
+                    @Html.DisplayNameFor(model => model.Clients[0].Email)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].Workplace)
+                    @Html.DisplayNameFor(model => model.Clients[0].Workplace)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].Position)
+                    @Html.DisplayNameFor(model => model.Clients[0].Position)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].MonthlyIncome)
+                    @Html.DisplayNameFor(model => model.Clients[0].MonthlyIncome)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].MaritalStatus)
+                    @Html.DisplayNameFor(model => model.Clients[0].MaritalStatus)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].Citizenship)
+                    @Html.DisplayNameFor(model => model.Clients[0].Citizenship)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].Disability)
+                    @Html.DisplayNameFor(model => model.Clients[0].Disability)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].IsPensioner)
+                    @Html.DisplayNameFor(model => model.Clients[0].IsPensioner)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Client[0].IsMilitaryServiceRequired)
+                    @Html.DisplayNameFor(model => model.Clients[0].IsMilitaryServiceRequired)
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Client.OrderBy(c => c.LastName))
+            @foreach (var item in Model.Clients.OrderBy(c => c.LastName))
             {
                 <tr>
                     <td>
@@ -160,9 +160,9 @@
                         @Html.DisplayFor(modelItem => item.IsMilitaryServiceRequired)
                     </td>
                     <td style="min-width: 200px">
-                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Изменить</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Подробнее</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Удалить</a>
                     </td>
                 </tr>
             }

@@ -1,10 +1,6 @@
-﻿using GigaBankLab.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using GigaBankLab.Data;
 using GigaBankLab.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GigaBankLab.Services
 {
@@ -140,7 +136,7 @@ namespace GigaBankLab.Services
         {
             var date = await _dateService.GetBankDayAsync();
             var openDepositContracts = await _context.DepositContracts
-                .Where(dc => !dc.IsClosed && dc.CloseDate > date && dc.OpenDate <= date)
+                .Where(dc => !dc.IsClosed && dc.CloseDate.Date >= date.Date && dc.OpenDate <= date.Date)
                 .Include(dc => dc.PercentAccount)
                 .Include(dc => dc.CurrentAccount)
                 .Include(dc => dc.Deposit)

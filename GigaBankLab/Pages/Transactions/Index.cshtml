@@ -11,22 +11,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Transaction[0].DateTime)
+                @Html.DisplayNameFor(model => model.Transactions[0].DateTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Transaction[0].FromAccount)
+                @Html.DisplayNameFor(model => model.Transactions[0].FromAccount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Transaction[0].ToAccount)
+                @Html.DisplayNameFor(model => model.Transactions[0].ToAccount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Transaction[0].Sum)
+                @Html.DisplayNameFor(model => model.Transactions[0].Sum)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Transaction) {
+@foreach (var item in Model.Transactions) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.DateTime)

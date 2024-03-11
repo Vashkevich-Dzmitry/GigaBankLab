@@ -5,11 +5,11 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to GigaBank</h1>
+    <h1 class="display-4">Добро пожаловать в Банк "GigaBank"</h1>
     <p>Сегодня @Model.Today.ToShortDateString()</p>
 
-    <a asp-page-handler="CloseBankDay" class="btn btn-primary">Next bank day</a>
-    <a asp-page-handler="CloseSomeBankDays" class="btn btn-primary">Skip @Model.SomeDaysAmount bank days</a>
-    <a asp-page-handler="CloseManyBankDays" class="btn btn-primary">Skip @Model.ManyDaysAmount bank days</a>
+    <a asp-page-handler="CloseBankDay" class="btn btn-primary">Следующий банковский день</a>
+    <a asp-page-handler="CloseSomeBankDays" class="btn btn-primary">Пропустить @Model.SomeDaysAmount банковских дней</a>
+    <a asp-page-handler="CloseManyBankDays" class="btn btn-primary">Пропустить @Model.ManyDaysAmount банковских дней</a>
 
 </div>

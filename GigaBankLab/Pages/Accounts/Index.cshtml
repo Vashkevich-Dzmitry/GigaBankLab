@@ -11,31 +11,31 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Account[0].Number)
+                @Html.DisplayNameFor(model => model.Accounts[0].Number)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Account[0].Credit)
+                @Html.DisplayNameFor(model => model.Accounts[0].Credit)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Account[0].Debit)
+                @Html.DisplayNameFor(model => model.Accounts[0].Debit)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Account[0].Balance)
+                @Html.DisplayNameFor(model => model.Accounts[0].Balance)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Account[0].Client)
+                @Html.DisplayNameFor(model => model.Accounts[0].Client)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Account[0].Type)
+                @Html.DisplayNameFor(model => model.Accounts[0].Type)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Account[0].Currency)
+                @Html.DisplayNameFor(model => model.Accounts[0].Currency)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Account) {
+@foreach (var item in Model.Accounts) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Number)

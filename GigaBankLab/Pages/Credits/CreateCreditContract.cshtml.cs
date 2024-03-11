@@ -13,7 +13,7 @@ namespace GigaBankLab.Pages.Credits
 {
     public class CreateCreditContractModel : PageModel
     {
-        private readonly GigaBankLab.Data.GigaBankLabContext _context;
+        private readonly GigaBankLabContext _context;
         private readonly CreditsService _creditsSevice;
 
         public CreateCreditContractModel(GigaBankLabContext context, CreditsService creditsService)
@@ -25,7 +25,7 @@ namespace GigaBankLab.Pages.Credits
         public IActionResult OnGet()
         {
             ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "IdentificationNumber");
-            ViewData["CreditId"] = new SelectList(_context.Credits, "Id", "Description");
+            ViewData["CreditId"] = new SelectList(_context.CreditProducts, "Id", "Description");
             return Page();
         }
 
@@ -37,7 +37,7 @@ namespace GigaBankLab.Pages.Credits
             if (!ModelState.IsValid)
             {
                 ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "IdentificationNumber");
-                ViewData["CreditId"] = new SelectList(_context.Credits, "Id", "Description");
+                ViewData["CreditId"] = new SelectList(_context.CreditProducts, "Id", "Description");
                 return Page();
             }
 
